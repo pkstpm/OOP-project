@@ -66,6 +66,4 @@ class Customer(Account):
     def history_purchase(self):
         return self._history_purchase
     
-    @property
-    def point(self):
-        return self._point
+    
