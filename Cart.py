@@ -23,3 +23,11 @@ class Cart:
         for item in self._items:
             total_price += item[0].get_price() * item[1]
         return total_price
+    
+    def view_cart(self):
+        if len(self._items) == 0:
+            print("Your cart is empty.")
+        else:
+            print("Items in your cart:")
+            for item in self._items:
+                print("- " + item[item] + ": " + item[item][1])
