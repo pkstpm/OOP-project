@@ -38,25 +38,3 @@ class Accountlist:
                 else:
                     return "welcome everyone let's shoppinggggg"
         return "please try again!!!"
-
-# account_list = Accountlist()
-
-# jack = Customer("jkj", "1234", "akeraanucha1@gmail.com", "Jack")
-# tai = Customer("tai", "4321", "taitai@gmail.com", "Tai")
-# poon = Admin("poon", "555", "poonpoon@gmail.com", "Poon")
-
-# account_list.add_account(jack)
-# account_list.add_account(tai)
-# account_list.add_account(poon)
-
-# account_list.login("poon","555")
-
-# account_list.login("poon","554")
-
-# account_list.login("jkj","1234")
-
-# account_list.create_account("jkj","444","444","chomchom@gmail.com", "Chompoo")
-
-# account_list.create_account("chom","555","444","chomchom@gmail.com", "Chompoo")
-
-# account_list.create_account("chom","444","444","chomchom@gmail.com", "Chompoo")
