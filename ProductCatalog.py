@@ -22,3 +22,7 @@ class ProductCatalog:
             if (product._category == category):
                 matching_product_catalog.append(product)
         return matching_product_catalog
+    
+    def view_catalog(self):
+        return self.product_catalog
+    

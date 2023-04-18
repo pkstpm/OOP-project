@@ -2,27 +2,27 @@ from Account import *
 
 class Accountlist:
     def __init__(self):
-        self.Account_list=[]
+        self.account_list=[]
         
-    def get_Account_list(self):
-        return self.Account_list
+    def get_account_list(self):
+        return self.account_list
         
     def add_account(self, account):
-        self.Account_list.append(account)
+        self.account_list.append(account)
         
     def create_account(self,username,password,check_password,email, name):
-        if(self.__check_correct(username)):
+        if(self.check_correct(username)):
             if(password == check_password):
-                self.Account_list.append(Customer(username,password,email,name))
-                return "register successfully!!"
+                self.account_list.append(Customer(username,password,email,name))
+                return f"register successfully!!"
             else:
-                return "plese check your password again!!"
+                return f"plese check your password again!!"
         else:
-            return "username had been use!!"
+            return f"username had been use!!"
         
-    def __check_correct(self, username):
-        if self.Account_list != []:
-            for account in self.Account_list:
+    def check_correct(self, username):
+        if self.account_list != []:
+            for account in self.account_list:
                 if account.username == username:
                     return False
                 else:
@@ -31,7 +31,7 @@ class Accountlist:
             return True
     
     def login(self,username,password):
-        for account in self.Account_list:
+        for account in self.account_list:
             if username == account.username and password == account.password:
                 if account.id == "admin":
                     return "HI ADMIN!!!"
