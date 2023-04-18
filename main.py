@@ -10,10 +10,20 @@ from Review import *
 
 catalog = ProductCatalog()
 
-catalog.add_product_to_catalog(Keyboard('Keyboard 1', 'KB001', 100.0, 80.0, 'A high-quality mechanical keyboard', 10, 'Cherry MX Brown', 'DSA', 104, 'Black'))
-catalog.add_product_to_catalog(Switch('Switch 1', 'SW001', 2.0, 1.5, 'A tactile mechanical switch', 100, 'Tactile', 60, 'MX-compatible'))
-catalog.add_product_to_catalog(Keycap('Keycap 1', 'KC001', 50.0, 40.0, 'A set of keycaps for mechanical keyboards', 20, 'Base', 'Cherry', 'Sculpted'))
-catalog.add_product_to_catalog(Keycap('Keycap 2', 'KC001', 50.0, 40.0, 'A set of keycaps for mechanical keyboards', 20, 'Base', 'Cherry', 'Sculpted'))
+Keyboard1 = Keyboard('Keyboard 1', 'KB001', 100.0, 80.0, 'A high-quality mechanical keyboard', 10, 'Cherry MX Brown', 'DSA', 104, 'Black')
+Switch1 = Switch('Switch 1', 'SW001', 2.0, 1.5, 'A tactile mechanical switch', 100, 'Tactile', 60, 'MX-compatible')
+Keycap1 = Keycap('Keycap 1', 'KC001', 50.0, 40.0, 'A set of keycaps for mechanical keyboards', 20, 'Base', 'Cherry', 'Sculpted')
+Keycap2 = Keycap('Keycap 2', 'KC001', 50.0, 40.0, 'A set of keycaps for mechanical keyboards', 20, 'Base', 'Cherry', 'Sculpted')
+
+catalog.add_product_to_catalog(Keyboard1)
+catalog.add_product_to_catalog(Keycap1)
+catalog.add_product_to_catalog(Keycap2)
+catalog.add_product_to_catalog(Switch1)
+
+Keyboard1.add_review(5, "asjodn")
+Keyboard1.add_review(4, "asjodn")
+Keyboard1.add_review(3, "asjodn")
+
 
 account_list = Accountlist()
 
