@@ -60,5 +60,3 @@ class Accountlist:
 # account_list.create_account("chom","555","444","chomchom@gmail.com", "Chompoo")
 
 # account_list.create_account("chom","444","444","chomchom@gmail.com", "Chompoo")
-
-# print(account_list.get_Account_list())

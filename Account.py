@@ -21,15 +21,26 @@ class Account:
     def name(self):
         return self.__name
     
-    def view_history_purchase(account):
-        pass
+    @password.setter
+    def password(self, new_password):
+        self.__password = new_password
+        
+    @email.setter
+    def email(self, new_email):
+        self.__email = new_email
+        
+    @name.setter
+    def name(self, new_name):
+        self.__name = new_name
+    
+    
 
 class Admin(Account):
+    ID ="admin"
     def __init__(self, username, password, email, name):
         super().__init__(username, password, email,name)
         self.__admin_name = "Admin_" + name
-        id="admin"
-        self.__id = id
+        self.__id = Admin.ID
     
     @property
     def name(self):
@@ -43,10 +54,10 @@ class Customer(Account):
     ID = 0
     def __init__(self, username, password, email,name):
         super().__init__(username, password, email, name)
-        self._address = []
+        self._address = ""
         self._shipping_status = []
         self._history_purchase = []
-        self._point = []
+        self._point = 0
         self._id = Customer.ID
         Customer.ID += 1
         
@@ -69,3 +80,8 @@ class Customer(Account):
     @property
     def point(self):
         return self._point
+    
+    @address.setter
+    def address(self, new_address):
+        self._address = str(new_address)
+        
