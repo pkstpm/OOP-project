@@ -20,6 +20,22 @@ def search_categoryproduct(category:str):
 def view_catalog():
     return catalog.view_catalog()
 
+#add review
+@app.post("/add_review/{product}" , tags=["Product"])
+def add_review(name, rating, comment):
+    for product in catalog.product_catalog:
+        if product.name == name :
+            product.add_review(rating, comment)
+            return product
+        
+#remove review
+@app.delete("/remove_review/{product}" , tags=["Product"])
+def remove_review(review_id:int):
+    for product in catalog.product_catalog:
+        product.remove_review(review_id)
+        return product
+            
+
 #get account list
 @app.get("/account_list" , tags=["Account"])
 def get_account_list():

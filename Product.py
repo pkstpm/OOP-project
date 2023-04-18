@@ -1,3 +1,5 @@
+from Review import *
+
 class Product:
     id = 0
 
@@ -61,12 +63,36 @@ class Product:
         return self._category
     
     @property
+    def review(self):
+        return self._review
+    @review.setter
+    def set_review(self, review):
+        self._review = review
+        return self._review
+    
+    @property
     def status(self):
         return self._status
     @status.setter
     def set_status(self, status):
         self._status = status
         return self._status
+    
+    def add_review(self, rating, comment):
+        new_review = Review(rating, comment)
+        self._review.append(new_review)
+
+    def remove_review(self, review_id):
+        for review in self._review:
+            if review.review_id == review_id:
+                self._review.remove(review)
+
+    def average_rating(self):
+        if len(self._review) == 0:
+            return 0
+        else:
+            total_rating = sum([review.rating for review in self._review])
+            return total_rating/len(self._review)
 
 class Keyboard(Product):
     def __init__(self, name, price, promotion_price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, status="available"):
