@@ -47,7 +47,7 @@ class Admin(Account):
 
 class Customer(Account):
     ID = 0
-    def __init__(self, username, password, email,name):
+    def __init__(self, username, password, email, name):
         super().__init__(username, password, email, name)
         self.__address = ""
         self.__shipping_status = []
@@ -67,7 +67,6 @@ class Customer(Account):
     def address(self, new_address):
         self.__address = str(new_address)
         
-    
     @property
     def shipping_status(self):
         return self.__shipping_status
