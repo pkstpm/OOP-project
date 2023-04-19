@@ -50,3 +50,19 @@ cart = Cart("100001")
 cart.add_item("key002",2)
 cart.add_item("key002",2)
 
+
+
+    
+    def view_cart(self):
+        if len(self._items) == 0:
+            print("Your cart is empty.")
+        else:
+            print("Items in your cart:")
+            for item in self._items:
+                print("- " + item[item] + ": " + item[item][1])
+
+product1 = Product("key002","2000","2000","blahblah1","20","keyboard")
+product2 = Product("key001","3000","2000","blahblah","20","keyboard")
+
+
+
