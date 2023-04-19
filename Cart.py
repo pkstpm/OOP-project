@@ -1,9 +1,37 @@
-from Product import *
+class Product:
+    id = 0
+
+    def __init__(self, name, price, promotion_price, overview, quantity, category, status = "available"):
+        self._name = name
+        self._price = price
+        self._promotion_price = promotion_price
+        self._overview = overview
+        self._quantity = quantity
+        self._category = category
+        self._status = status
+        self._review = []
+        self._product_id = Product.id
+        Product.id += 1
+    
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def set_name(self, name):
+        self._name = name
+        return self._name
+    
+    @property
+    def price(self):
+        return self._price
+    @price.setter
+    def set_price(self, price):
+        self._price = price
+
 
 # Define Cart class
 class Cart:
-    def __init__(self, cart_id):
-        self.cart_id = cart_id
+    def __init__(self):
         self.items = {}
     
     def add_product(self, product, quantity = 1):
@@ -24,25 +52,31 @@ class Cart:
         print("Cart cleared.")
     
     def view_cart(self):
-        print(f"Cart ID: {self.cart_id}")
         for product_id, quantity in self.items.items():
             print(f"Product ID: {product_id}, Quantity: {quantity}")
+        # print (self.items)
+        # print (list(map(list,self.items.items())))
+        # print (list(self.items.keys()))
+        
+        
+
+
     
         
 
 product1 = Product("key001","2000","2000","blahblah1","20","keyboard")
 product2 = Product("key002","3000","2000","blahblah","20","keyboard")
 
-cart = Cart("12345")
+cart = Cart()
 
 cart.add_product(product1, 2)
 cart.add_product(product2, 3)
 cart.add_product(product1, 2)
 
-cart.view_cart()
+#cart.view_cart()
 
 cart.remove_product(product2, 1)
 
 cart.view_cart()
 
-cart.clear_cart()
+#cart.clear_cart()
