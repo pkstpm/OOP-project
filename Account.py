@@ -1,39 +1,34 @@
 class Account:
     def __init__(self, username, password, email,name):
-        self.__username = username
-        self.__password = password
-        self.__email = email
-        self.__name = name
+        self._username = username
+        self._password = password
+        self._email = email
+        self._name = name
 
     @property
     def username(self):
-        return self.__username
+        return self._username
     
     @property
     def password(self):
-        return self.__password
+        return self._password
+    @password.setter
+    def password(self, new_password):
+        self._password = new_password
     
     @property
     def email(self):
-        return self.__email
+        return self._email
+    @email.setter
+    def email(self, new_email):
+        self._email = new_email
 
     @property
     def name(self):
-        return self.__name
-    
-    @password.setter
-    def password(self, new_password):
-        self.__password = new_password
-        
-    @email.setter
-    def email(self, new_email):
-        self.__email = new_email
-        
+        return self._name
     @name.setter
     def name(self, new_name):
-        self.__name = new_name
-    
-    
+        self._name = new_name
 
 class Admin(Account):
     ID ="admin"
@@ -52,36 +47,35 @@ class Admin(Account):
 
 class Customer(Account):
     ID = 0
-    def __init__(self, username, password, email,name):
+    def __init__(self, username, password, email, name):
         super().__init__(username, password, email, name)
-        self._address = ""
-        self._shipping_status = []
-        self._history_purchase = []
-        self._point = 0
-        self._id = Customer.ID
+        self.__address = ""
+        self.__shipping_status = []
+        self.__history_purchase = []
+        self.__point = 0
+        self.__id = Customer.ID
         Customer.ID += 1
         
     @property
     def id(self):
-        return self._id
+        return self.__id
     
     @property
     def address(self):
-        return self._address
-    
+        return self.__address
+    @address.setter
+    def address(self, new_address):
+        self.__address = str(new_address)
+        
     @property
     def shipping_status(self):
-        return self._shipping_status
+        return self.__shipping_status
     
     @property
     def history_purchase(self):
-        return self._history_purchase
+        return self.__history_purchase
     
     @property
     def point(self):
-        return self._point
+        return self.__point
     
-    @address.setter
-    def address(self, new_address):
-        self._address = str(new_address)
-        
