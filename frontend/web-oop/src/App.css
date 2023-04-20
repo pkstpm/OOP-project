@@ -1,0 +1,13 @@
+.app-header{
+  border-bottom: 1px solid black;
+  background: gray;
+  height: 50px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.app-grid{
+  display: grid;
+  column-gap: 16px;
+  row-gap: 16px;
+}
