@@ -93,6 +93,8 @@ class Product:
         else:
             total_rating = sum([review.rating for review in self._review])
             return total_rating/len(self._review)
+        
+    
 
 class Keyboard(Product):
     def __init__(self, name, price, promotion_price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, status="available"):
