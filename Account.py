@@ -1,3 +1,4 @@
+from DiscountCode import *
 class Account:
     def __init__(self, username, password, email,name):
         self._username = username
@@ -36,6 +37,7 @@ class Admin(Account):
         super().__init__(username, password, email,name)
         self.__admin_name = "Admin_" + name
         self.__id = Admin.ID
+        self.__code_list = []
     
     @property
     def name(self):
@@ -44,6 +46,17 @@ class Admin(Account):
     @property
     def id(self):
         return self.__id
+    
+    @property
+    def code_list(self):
+        return self.__code_list
+    @code_list.setter
+    def set_code_list(self, code_list):
+        self.__code_list = code_list
+        return self.__code_list
+    
+    def add_discount_code(self,code):
+        self.code_list.append(code)
 
 class Customer(Account):
     ID = 0
