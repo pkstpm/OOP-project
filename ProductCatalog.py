@@ -16,12 +16,13 @@ class ProductCatalog:
             else:
                 return None
         
-    def search_product_by_category(self,category):
+    def search_product_by_category(self, category):
         matching_product_catalog = []
         for product in self.product_catalog:
             if (product._category == category):
                 matching_product_catalog.append(product)
         return matching_product_catalog
+    
     
     def view_catalog(self):
         print (self.product_catalog)
