@@ -1,5 +1,6 @@
 from Product import *
 from ProductCatalog import *
+from DiscountCode import *
 class Cart:
     def __init__(self):
         self.items = {}
@@ -38,6 +39,9 @@ class Cart:
         return total_price
             # total_price += product.price * quantity
         # return total_price
+
+    def apply_discount_code(self):
+        return self.calculate_price() * 
         
 
             
@@ -56,6 +60,8 @@ cart = Cart()
 cart.add_product(product1, 2)
 cart.add_product(product2, 3)
 cart.add_product(product1, 2)
+
+cart.get_discount()
 
 
 cart.remove_product(product2, 4)
