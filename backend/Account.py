@@ -1,81 +1,79 @@
+from Cart import *
+
 class Account:
-    def __init__(self, username, password, email,name):
+    def __init__(self, username ,password):
         self._username = username
         self._password = password
-        self._email = email
-        self._name = name
 
     @property
     def username(self):
         return self._username
-    
     @property
     def password(self):
         return self._password
+    
     @password.setter
     def password(self, new_password):
         self._password = new_password
+        return self._password
     
+class Admin(Account):
+
+    id = 'admin'
+
+    def __init__(self, username, password):
+        super().__init__(username, password)
+        self.__id = Admin.id
+
+    @property
+    def id(self):
+        return self.__id
+    
+class Customer(Account):
+    id = 0
+
+    def __init__(self, username, password, email, name):
+        super().__init__(username, password)
+        self.__email = email
+        self.__name = name
+        self.__address = ''
+        self.__history_purchase = []
+        self.__cart = Cart()
+        self.__id = Customer.id
+        Customer.id += 1
+
     @property
     def email(self):
-        return self._email
-    @email.setter
-    def email(self, new_email):
-        self._email = new_email
-
+        return self.__email
     @property
     def name(self):
-        return self._name
-    @name.setter
-    def name(self, new_name):
-        self._name = new_name
-
-class Admin(Account):
-    ID ="admin"
-    def __init__(self, username, password, email, name):
-        super().__init__(username, password, email,name)
-        self.__admin_name = "Admin_" + name
-        self.__id = Admin.ID
-    
-    @property
-    def name(self):
-        return self.__admin_name
-    
-    @property
-    def id(self):
-        return self.__id
-
-class Customer(Account):
-    ID = 0
-    def __init__(self, username, password, email, name):
-        super().__init__(username, password, email, name)
-        self.__address = ""
-        self.__shipping_status = []
-        self.__history_purchase = []
-        self.__point = 0
-        self.__id = Customer.ID
-        Customer.ID += 1
-        
-    @property
-    def id(self):
-        return self.__id
-    
+        return self.__name
     @property
     def address(self):
         return self.__address
-    @address.setter
-    def address(self, new_address):
-        self.__address = str(new_address)
-        
-    @property
-    def shipping_status(self):
-        return self.__shipping_status
-    
     @property
     def history_purchase(self):
         return self.__history_purchase
-    
     @property
-    def point(self):
-        return self.__point
+    def cart(self):
+        return self.__cart
+    @property
+    def id(self):
+        return self.__id
     
+    @name.setter
+    def name(self, new_name):
+        self.__name = new_name
+        return self.__name
+    @address.setter
+    def address(self, new_address):
+        self.__address = new_address
+        return self.__address
+    @history_purchase
+    def history_purchase(self, new_history_purchase):
+        self.__history_purchase = new_history_purchase
+        return self.__history_purchase
+    @cart.setter
+    def cart(self, new_cart):
+        self.__cart = new_cart
+        return self.__cart

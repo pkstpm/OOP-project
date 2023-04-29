@@ -1,35 +1,11 @@
-from Product import *
-
 class ProductCatalog:
-    
     def __init__(self):
-        self.product_catalog = []
-        
+        self.__products = []
 
-    def add_product_to_catalog(self, product):
-        self.product_catalog.append(product)
-
-    def search_product_by_name(self,name):
-        for product in self.product_catalog:
-            if product.name == name:
-                return product
-            else:
-                return None
-        
-    def search_product_by_category(self,category):
-        matching_product_catalog = []
-        for product in self.product_catalog:
-            if (product._category == category):
-                matching_product_catalog.append(product)
-        return matching_product_catalog
-    
-    def view_catalog(self):
-        print (self.product_catalog)
-        return self.product_catalog
-    
-    
-    def get_price(self,name):
-        for product in self.product_catalog:
-            if product.name == name:
-                print(product.price)
-                return product.price
+    @property
+    def products(self):
+        return self.__products
+    @products.setter
+    def products(self, new_products):
+        self.__products = new_products
+        return self.__products

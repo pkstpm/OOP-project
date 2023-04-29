@@ -1,69 +1,32 @@
-from Product import *
-from ProductCatalog import *
+class Item:
+    def __init__(self, product, quantity):
+        self.__product = product
+        self.__quantity = quantity
+
+    @property
+    def product(self):
+        return self.__product
+    @property
+    def quantity(self):
+        return self.__quantity
+    
+    @product.setter
+    def product(self, new_product):
+        self.__product = new_product
+        return self.__product
+    @quantity.setter
+    def quantity(self, new_quantity):
+        self.__quantity = new_quantity
+        return self.__quantity
+
 class Cart:
     def __init__(self):
-        self.items = {}
-    
-    def add_product(self, product, quantity = 1):
-        if product in self.items.keys():
-            self.items[product] += quantity
-        else:
-            self.items.update({product : quantity})
-        print(self.items)
-    
-    def remove_product(self, product, quantity):
-        if product in self.items:
-            if self.items[product] > quantity:
-                self.items[product] -= quantity
-            else:
-                del self.items[product]
-    
-    def clear_cart(self):
-        self.items = {}
-        print("Cart cleared.")
+        self.__items = []
 
-    
-    def view_cart(self):
-        for product, quantity in self.items.items():
-            print(f"Product ID: {product.name}, Quantity: {quantity}")
-        # print (self.items)
-        # print (list(map(list,self.items.items())))
-        # print (list(self.items.keys()))
-    
-    def calculate_price(self):
-        total_price = 0
-        for product ,quantity in self.items.items():
-            total_price += product.price * quantity
-        print (total_price)
-        return total_price
-            # total_price += product.price * quantity
-        # return total_price
-        
-
-            
-        
-product1 = Product("key001",2000,2000,"blahblah1",20,"keyboard")
-product2 = Product("key002",300,2000,"blahblah",20,"keyboard")
-procat = ProductCatalog()
-procat.add_product_to_catalog(product1)
-procat.add_product_to_catalog(product2)
-procat.view_catalog()
-procat.get_price("key001")
-
-
-cart = Cart()
-
-cart.add_product(product1, 2)
-cart.add_product(product2, 3)
-cart.add_product(product1, 2)
-
-
-cart.remove_product(product2, 4)
-
-cart.view_cart()
-
-# cart.clear_cart()
-cart.calculate_price()
-
-
-
+    @property
+    def items(self):
+        return self.__items
+    @items.setter
+    def items(self, new_items):
+        self.__items = new_items
+        return self.__items
