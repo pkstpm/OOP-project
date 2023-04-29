@@ -1,11 +1,11 @@
 class AccountList:
     def __init__(self):
-        self.__account_list = []
+        self.__accounts = []
 
     @property
-    def account_list(self):
-        return self.__account_list
-    @account_list.setter
-    def account_list(self, new_account_list):
-        self.__account_list = new_account_list
-        return self.__account_list
+    def accounts(self):
+        return self.__accounts
+    @accounts.setter
+    def account_list(self, new_accounts):
+        self.__accounts = new_accounts
+        return self.__accounts

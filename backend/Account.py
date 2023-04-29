@@ -69,7 +69,7 @@ class Customer(Account):
     def address(self, new_address):
         self.__address = new_address
         return self.__address
-    @history_purchase
+    @history_purchase.setter
     def history_purchase(self, new_history_purchase):
         self.__history_purchase = new_history_purchase
         return self.__history_purchase

@@ -10,7 +10,7 @@ class Product:
         self._quantity = quantity
         self._category = category
         self._status = status
-        self._id = Product.id
+        self._product_id = Product.id
         Product.id += 1
 
     @property
@@ -35,8 +35,8 @@ class Product:
     def status(self):
         return self._status
     @property
-    def id(self):
-        return self._id
+    def product_id(self):
+        return self._product_id
     
     @name.setter
     def name(self, new_name):
