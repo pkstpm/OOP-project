@@ -24,5 +24,12 @@ class ProductCatalog:
         return matching_product_catalog
     
     def view_catalog(self):
+        print (self.product_catalog)
         return self.product_catalog
     
+    
+    def get_price(self,name):
+        for product in self.product_catalog:
+            if product.name == name:
+                print(product.price)
+                return product.price
