@@ -1,15 +1,15 @@
 import datetime
 
+date = datetime.datetime.now()
+
 class Review:
 
     id = 0
 
-    date = datetime.datetime.now()
-
     def __init__(self, rating, name):
         self.__rating = rating
         self.__name = name
-        self.__date = Review.date.strftime("%x")
+        self.__date = date.strftime("%x")
         self.__review_id = Review.id
         Review.id += 1
 

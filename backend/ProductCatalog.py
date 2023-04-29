@@ -15,3 +15,14 @@ class ProductCatalog:
     def add_product(self, product):
         if isinstance(product,Product):
             self.products.append(product)
+            return self.products
+
+    def remove_product(self, product_id):
+        product = self.check_product(product_id)
+        self.products.remove(product)
+        return self.products
+
+    def check_product(self, product_id):
+        for product in self.products:
+            if product.product_id == product_id:
+                return product

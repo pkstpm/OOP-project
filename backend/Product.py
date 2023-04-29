@@ -1,3 +1,5 @@
+from Review import *
+
 class Product:
 
     id = 0
@@ -9,6 +11,7 @@ class Product:
         self._promotion_price = promotion_price
         self._quantity = quantity
         self._category = category
+        self._reviews = []
         self._status = status
         self._product_id = Product.id
         Product.id += 1
@@ -34,6 +37,9 @@ class Product:
     @property
     def status(self):
         return self._status
+    @property
+    def reviews(self):
+        return self._reviews
     @property
     def product_id(self):
         return self._product_id
@@ -66,6 +72,38 @@ class Product:
     def status(self, new_status):
         self._status = new_status
         return self._status
+    @reviews.setter
+    def reviews(self, new_reviews):
+        self._reviews = new_reviews
+        return self._reviews
+    
+    def add_quantity(self, quantity):
+        self.quantity += quantity
+        return self.quantity
+    
+    def reduce_quantity(self, quantity):
+        if self.quantity >= quantity:
+            self.quantity -= quantity
+            return True
+        elif self.quantity < quantity:
+            return False
+        
+    def check_status(self):
+        if self.status == 'available':
+            return True
+        else:
+            return False
+        
+    def add_review(self, review):
+        if isinstance(review,Review):
+            self.reviews.append(review)
+            return self.reviews
+        
+    def remove_review(self, review_id):
+        for review in self.reviews:
+            if review.review_id == review_id:
+                self.reviews.remove(review)
+                return self.reviews
     
 class Keyboard(Product):
     def __init__(self, name, price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, promotion_price=None, status="available"):
