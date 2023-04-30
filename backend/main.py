@@ -24,6 +24,8 @@ account1 = Customer("user",1234,"poon","P")
 accountlist.add_account(account1)
 
 account2 , cart2 = accountlist.register("1234",1234,1234,1234,1234)
+ac1 , c1 = accountlist.login("user", 1234)
+
 
 catalog.add_product(product1)
 catalog.add_product(product2)
@@ -55,3 +57,5 @@ product1.add_review(review2)
 product1.add_review(review3)
 product1.add_review(review4)
 product1.remove_review(1)
+
+catalog.search_product('Key')

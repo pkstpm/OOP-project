@@ -9,12 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+    return 'Website'
 
 @app.post("/productcatalog/product" , tags=['Product'])
 async def add_product(product_data:dict = Body(...)):
@@ -32,6 +27,10 @@ async def remove_product(product_data:dict = Body(...)):
     except:
         return 'Cant remove product'
     
+@app.get("/productcatalog/{name}" , tags=['Product'])
+async def search_product(name : str):
+    return catalog.search_product(name)
+    
 @app.post("/account" , tags=['Account'])
 async def create_account(account_data:dict = Body(...)):
     new_account , cart = accountlist.register(account_data.get("username"),account_data.get("password"),account_data.get("check_password"),account_data.get("email"),account_data.get("name"))
@@ -42,12 +41,12 @@ async def create_account(account_data:dict = Body(...)):
         return 'Failed'
     
 @app.get("/account" , tags=['Account'])
-async def login(username,password:int):
+async def login(username,password):
     try:
-        account , cart =  accountlist.login(username,password)
-        return account , cart
+        account =  accountlist.login(username,password)
+        return account , account.cart
     except:
-        return 'Failed'
+        return 'Your username or password is wrong'
     
 @app.post("/cart" , tags=['Cart'])
 async def add_product_to_cart(item_data:dict = Body(...)):

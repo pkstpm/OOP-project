@@ -17,7 +17,7 @@ class AccountList:
             self.accounts.append(account)
             return self.accounts
         
-    def register(self, username ,password, check_password, email, name):
+    def register(self, username , password, check_password, email, name):
         if self.verify_account(username,password,check_password,email):
             new_account = Customer(username,password,email,name)
             return new_account , new_account.cart

@@ -26,3 +26,10 @@ class ProductCatalog:
         for product in self.products:
             if product.product_id == product_id:
                 return product
+            
+    def search_product(self, name):
+        result = []
+        for product in self.products:
+            if name.lower() in product.name.lower() or name.lower() in product.category.lower():
+                result.append(product)
+        return result
