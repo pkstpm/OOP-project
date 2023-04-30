@@ -41,10 +41,10 @@ async def create_account(account_data:dict = Body(...)):
         return 'Failed'
     
 @app.get("/account" , tags=['Account'])
-async def login(username,password):
+async def login(username, password):
     try:
-        account =  accountlist.login(username,password)
-        return account , account.cart
+        account , cart =  accountlist.login(username,password)
+        return account , cart
     except:
         return 'Your username or password is wrong'
     

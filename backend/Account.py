@@ -3,7 +3,7 @@ from Cart import *
 class Account:
     def __init__(self, username ,password):
         self._username = username
-        self._password = str(password)
+        self._password = password
 
     @property
     def username(self):

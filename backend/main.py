@@ -20,11 +20,12 @@ Keyboard4 = Keyboard(name='Keyboard4',price= 150.0,promotion_price= 100.0, overv
 Keyboard5 = Keyboard(name='Keyboard5',price= 150.0,promotion_price= 100.0, overview='A high-quality mechanical keyboard', quantity=8, keyboard_switch='Cherry MX Brown', keyboard_keycap='DSA',keys= 104, casecolor='Black')
 Keyboard6 = Keyboard(name='Keyboard6',price= 150.0,promotion_price= 100.0, overview='A high-quality mechanical keyboard', quantity=8, keyboard_switch='Cherry MX Brown', keyboard_keycap='DSA',keys= 104, casecolor='Black')
 
-account1 = Customer("user",1234,"poon","P")
+account1 = Customer("user","1234","poon","P")
 accountlist.add_account(account1)
 
-account2 , cart2 = accountlist.register("1234",1234,1234,1234,1234)
-ac1 , c1 = accountlist.login("user", 1234)
+account2 , cart2 = accountlist.register("1234","1234","1234","1234","1234")
+accountlist.add_account(account2)
+ac1 , c1 = accountlist.login("user", "1234")
 
 
 catalog.add_product(product1)
@@ -38,14 +39,14 @@ catalog.add_product(Keyboard3)
 catalog.add_product(Keyboard4)
 catalog.add_product(Keyboard5)
 
-cart2.add_product_to_cart(Keyboard1,3)
-cart2.add_product_to_cart(Keyboard2)
-cart2.add_product_to_cart(Keyboard3)
-cart2.add_product_to_cart(Keyboard4)
-cart2.add_product_to_cart(Keyboard5)
-cart2.add_product_to_cart(Keyboard6)
+# cart2.add_product_to_cart(Keyboard1,3)
+# cart2.add_product_to_cart(Keyboard2)
+# cart2.add_product_to_cart(Keyboard3)
+# cart2.add_product_to_cart(Keyboard4)
+# cart2.add_product_to_cart(Keyboard5)
+# cart2.add_product_to_cart(Keyboard6)
 
-cart2.remove_product_from_cart(Keyboard1)
+# cart2.remove_product_from_cart(Keyboard1)
 
 review1 = Review(5,"ad")
 review2 = Review(4,"ad")
