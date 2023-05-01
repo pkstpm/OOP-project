@@ -12,7 +12,7 @@ class AccountList:
         self.__accounts = new_accounts
         return self.__accounts
     
-    def add_account(self ,account):
+    def add_account(self, account):
         try:
             self.accounts.append(account)
             return account
@@ -24,10 +24,15 @@ class AccountList:
             if username == account.username or email == account.email:
                 return False
         return True
-            
+    
     def verify_login(self, username, password):
         for account in self.accounts:
             if username == account.username and password == account.password:
                 return account
+            
+    def check_password(self, password, check_password):
+        if password == check_password:
+            return True
+        return False
             
         

@@ -47,6 +47,5 @@ class ProductCatalog:
             if category == product.category:
                 result.append(product)
         return result
-             
     
     
