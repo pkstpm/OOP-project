@@ -16,7 +16,7 @@ async def search_by_category(name : str , category : str):
 #view_catalog
 @app.get("/product")
 async def view_catalog():
-    return product_catalog.view_catalog()
+    return product_catalog.products
 
 #view_product
 @app.get("/product/{product_id}")
@@ -28,6 +28,7 @@ async def view_product(product_id : int):
 async def view_category(category : str):
     return product_catalog.get_by_category(category)
 
+# login
 @app.post("/login")
 async def login(account_data:dict = Body(...)):
     try:
@@ -39,6 +40,7 @@ async def login(account_data:dict = Body(...)):
     except:
         return {"message":"Failed"}
     
+# register
 @app.post("/register")
 async def register(account_data:dict = Body(...)):
     try:
@@ -51,16 +53,19 @@ async def register(account_data:dict = Body(...)):
     except:
         return {"message":"Failed"}
 
+# view_cart
 @app.post("/cart/")
 async def view_cart(account_data:dict = Body(...)):
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
     return cart.view_cart()
 
-# @app.get("/account_list")
-# async def get_account_list():
-#     return account_list.accounts
-
-# @app.get("/account/{account_id}")
-# async def check(account_id : int):
-#     return account_list.get_account(account_id)
+@app.post("/cart/add_item")
+async def add_product_to_cart(data:dict = Body(...)):
+    try:
+        account = account_list.get_account(data.get("account_id"))
+        product = product_catalog.get_product(data.get("product_id"))
+        cart = account.cart
+        return cart.add_product_to_cart(product,data.setdefault("quantity",1))
+    except:
+        return 'Failed'
