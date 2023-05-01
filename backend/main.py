@@ -6,6 +6,7 @@ from Cart import *
 from Review import *
 
 product_catalog = ProductCatalog()
+account_list = AccountList()
 
 product1 = Product(name="Product1", price=100, promotion_price=None, overview='good', quantity=3, category='keyboard')
 product2 = Product(name="Product2", price=200, promotion_price=None, overview='good', quantity=3, category='keyboard')
@@ -23,6 +24,9 @@ keycap1 = Keycap(name="Keycap1", price=10, overview="oooo", quantity=4, kit="12"
 
 switch1 = Switch(name="Switch1", price=5, overview="o", quantity=3, variation=None, spring_weight=20, type_switch="linear")
 
+customer1 = Customer(username="Pongsapat", password="1234", email="65010660@kmitl.ac.th", name="Poon")
+customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", name="Jacky")
+
 product_catalog.add_product(product1)
 product_catalog.add_product(product2)
 product_catalog.add_product(product3)
@@ -35,6 +39,9 @@ product_catalog.add_product(keyboard5)
 product_catalog.add_product(keyboard6)
 product_catalog.add_product(keycap1)
 product_catalog.add_product(switch1)
+
+account_list.add_account(customer1)
+account_list.add_account(customer2)
 
 print(product_catalog.get_by_category("switch"))
 
