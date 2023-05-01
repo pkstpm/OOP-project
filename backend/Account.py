@@ -39,7 +39,7 @@ class Customer(Account):
         self.__address = ''
         self.__history_purchase = []
         self.__cart = Cart()
-        self.__customer_id = Customer.id
+        self.__account_id = Customer.id
         Customer.id += 1
 
     @property
@@ -58,8 +58,8 @@ class Customer(Account):
     def cart(self):
         return self.__cart
     @property
-    def customer_id(self):
-        return self.__customer_id
+    def account_id(self):
+        return self.__account_id
     
     @name.setter
     def name(self, new_name):

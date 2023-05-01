@@ -77,33 +77,7 @@ class Product:
         self._reviews = new_reviews
         return self._reviews
     
-    def add_quantity(self, quantity):
-        self.quantity += quantity
-        return self.quantity
-    
-    def reduce_quantity(self, quantity):
-        if self.quantity >= quantity:
-            self.quantity -= quantity
-            return True
-        elif self.quantity < quantity:
-            return False
-        
-    def check_status(self):
-        if self.status == 'available':
-            return True
-        else:
-            return False
-        
-    def add_review(self, review):
-        if isinstance(review,Review):
-            self.reviews.append(review)
-            return self.reviews
-        
-    def remove_review(self, review_id):
-        for review in self.reviews:
-            if review.review_id == review_id:
-                self.reviews.remove(review)
-                return self.reviews
+
     
 class Keyboard(Product):
     def __init__(self, name, price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, promotion_price=None, status="available"):
@@ -143,39 +117,10 @@ class Keyboard(Product):
         self.__casecolor = new_casecolor
         return self.__casecolor
     
+    
 class Keycap(Product):
-    def __init__(self, name, price, overview, quantity, variation, spring_weight, type_switch, promotion_price = None, status="available"):
-        super().__init__(name, price, overview, quantity, promotion_price, 'keycap', status)
-        self.__variation = variation
-        self.__spring_weight = spring_weight
-        self.__type_switch = type_switch
-
-    @property
-    def variation(self):
-        return self.__variation
-    @property
-    def spring_weight(self):
-        return self.__spring_weight
-    @property
-    def type_switch(self):
-        return self.__type_switch
-    
-    @variation.setter
-    def variation(self, new_variation):
-        self.__variation = new_variation
-        return self.__variation
-    @spring_weight.setter
-    def spring_weight(self, new_spring_weight):
-        self.__spring_weight = new_spring_weight
-        return self.__spring_weight
-    @type_switch.setter
-    def type_switch(self, new_type_switch):
-        self.__type_switch = new_type_switch
-        return self.__type_switch
-    
-class Switch(Product):
     def __init__(self, name, price, overview, quantity, kit, profile, type_keycap, promotion_price=None, status="available"):
-        super().__init__(name, price, overview, quantity, promotion_price, 'switch', status)
+        super().__init__(name, price, overview, quantity, promotion_price, 'keycap', status)
         self.__kit = kit
         self.__profile =profile
         self.__type_keycap = type_keycap
@@ -202,3 +147,32 @@ class Switch(Product):
     def type_keycap(self, new_type_keycap):
         self.__type_keycap = new_type_keycap
         return self.__type_keycap
+class Switch(Product):
+    def __init__(self, name, price, overview, quantity, variation, spring_weight, type_switch, promotion_price = None, status="available"):
+        super().__init__(name, price, overview, quantity, promotion_price, 'swicth', status)
+        self.__variation = variation
+        self.__spring_weight = spring_weight
+        self.__type_switch = type_switch
+
+    @property
+    def variation(self):
+        return self.__variation
+    @property
+    def spring_weight(self):
+        return self.__spring_weight
+    @property
+    def type_switch(self):
+        return self.__type_switch
+    
+    @variation.setter
+    def variation(self, new_variation):
+        self.__variation = new_variation
+        return self.__variation
+    @spring_weight.setter
+    def spring_weight(self, new_spring_weight):
+        self.__spring_weight = new_spring_weight
+        return self.__spring_weight
+    @type_switch.setter
+    def type_switch(self, new_type_switch):
+        self.__type_switch = new_type_switch
+        return self.__type_switch
