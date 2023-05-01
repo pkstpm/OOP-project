@@ -8,7 +8,7 @@ from Review import *
 product_catalog = ProductCatalog()
 account_list = AccountList()
 
-product1 = Product(name="Product1", price=100, promotion_price=None, overview='good', quantity=3, category='keyboard')
+product1 = Product(name="Product1", price=100, promotion_price=None, overview='good', quantity=5, category='keyboard')
 product2 = Product(name="Product2", price=200, promotion_price=None, overview='good', quantity=3, category='keyboard')
 product3 = Product(name="Product3", price=300, promotion_price=None, overview='good', quantity=3, category='keyboard')
 product4 = Product(name="Apple", price=400, promotion_price=None, overview='good', quantity=3, category='keyboard')
@@ -43,7 +43,10 @@ product_catalog.add_product(switch1)
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
-cart = Cart()
-cart.add_product_to_cart(product1,2)
-print(cart.view_cart())
+cart1 = customer1.cart
+cart1.add_product_to_cart(product1,2)
+cart1.add_product_to_cart(product1,4)
+cart1.remove_product_from_cart(0)
+cart1.add_product_to_cart(product1,5)
+print(cart1.view_cart())
 

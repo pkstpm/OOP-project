@@ -12,6 +12,11 @@ class AccountList:
         self.__accounts = new_accounts
         return self.__accounts
     
+    def get_account(self, account_id):
+        for account in self.accounts:
+            if account.account_id == account_id:
+                return account
+    
     def add_account(self, account):
         try:
             self.accounts.append(account)

@@ -50,3 +50,17 @@ async def register(account_data:dict = Body(...)):
             return {"message":"Success","account":new_account}
     except:
         return {"message":"Failed"}
+
+@app.post("/cart/")
+async def view_cart(account_data:dict = Body(...)):
+    account = account_list.get_account(account_data.get("account_id"))
+    cart = account.cart
+    return cart.view_cart()
+
+# @app.get("/account_list")
+# async def get_account_list():
+#     return account_list.accounts
+
+# @app.get("/account/{account_id}")
+# async def check(account_id : int):
+#     return account_list.get_account(account_id)

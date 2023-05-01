@@ -43,17 +43,20 @@ class Cart:
         return self.__items
     
     def add_product_to_cart(self, product, quantity = 1):
-        for item in self.items:
-            if product == item.product:
-                item.quantity += quantity
-                return self.items
-        new_item = Item(product,quantity)
-        self.items.append(new_item)
-        return new_item
+        if product.check_status() == True:
+            if product.reduce_quantity(quantity) == True:
+                for item in self.items:
+                    if item.product.product_id == product.product_id:
+                        item.quantity += quantity
+                        return item
+                new_item = Item(product,quantity)
+                self.items.append(new_item)
+                return new_item
     
     def remove_product_from_cart(self, product_id):
         for item in self.items:
             if product_id == item.product.product_id:
+                item.product.add_quantity(item.quantity)
                 self.items.remove(item)
                 return self.items
             
@@ -67,9 +70,9 @@ class Cart:
         result = []
         for item in self.items:
             new_data = {
-                "name":{item.product.name},
-                "quantity":{item.quantity},
-                "price":{item.calculate_price()}
+                "name":item.product.name,
+                "quantity":item.quantity,
+                "price":item.calculate_price()
             }
             result.append(new_data)
         total_price = {"total_price":self.calculate_total_price()}

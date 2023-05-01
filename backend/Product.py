@@ -77,7 +77,21 @@ class Product:
         self._reviews = new_reviews
         return self._reviews
     
-
+    def check_status(self):
+        if self.status == 'available':
+            return True
+        else:
+            return False
+        
+    def reduce_quantity(self, quantity):
+        if self.quantity >= quantity:
+            self.quantity -= quantity
+            return True
+        elif self.quantity < quantity:
+            return False
+        
+    def add_quantity(self, quantity):
+        self.quantity += quantity
     
 class Keyboard(Product):
     def __init__(self, name, price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, promotion_price=None, status="available"):
