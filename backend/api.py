@@ -18,3 +18,8 @@ async def search_by_category(name : str , category : str):
 async def view_catalog():
     return product_catalog.view_catalog()
 
+#view_product
+@app.get("/product/{product_id}")
+async def view_product(product_id : int):
+    return product_catalog.get_product(product_id)
+

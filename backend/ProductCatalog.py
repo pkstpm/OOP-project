@@ -35,6 +35,11 @@ class ProductCatalog:
     
     def view_catalog(self):
         return self.products
+    
+    def get_product(self, product_id):
+        for product in self.products:
+            if product.product_id == product_id:
+                return product
              
     
     
