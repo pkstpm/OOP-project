@@ -23,3 +23,7 @@ async def view_catalog():
 async def view_product(product_id : int):
     return product_catalog.get_product(product_id)
 
+# view_category
+@app.get("/products/{category}")
+async def view_category(category : str):
+    return product_catalog.get_by_category(category)

@@ -36,3 +36,5 @@ product_catalog.add_product(keyboard6)
 product_catalog.add_product(keycap1)
 product_catalog.add_product(switch1)
 
+print(product_catalog.get_by_category("switch"))
+

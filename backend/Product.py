@@ -149,7 +149,7 @@ class Keycap(Product):
         return self.__type_keycap
 class Switch(Product):
     def __init__(self, name, price, overview, quantity, variation, spring_weight, type_switch, promotion_price = None, status="available"):
-        super().__init__(name, price, overview, quantity, promotion_price, 'swicth', status)
+        super().__init__(name, price, overview, quantity, promotion_price, 'switch', status)
         self.__variation = variation
         self.__spring_weight = spring_weight
         self.__type_switch = type_switch

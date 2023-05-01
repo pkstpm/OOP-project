@@ -40,6 +40,13 @@ class ProductCatalog:
         for product in self.products:
             if product.product_id == product_id:
                 return product
+            
+    def get_by_category(self, category):
+        result = []
+        for product in self.products:
+            if category == product.category:
+                result.append(product)
+        return result
              
     
     
