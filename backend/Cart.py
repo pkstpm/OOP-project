@@ -73,6 +73,7 @@ class Cart:
             }
             result.append(new_data)
         total_price = {"total_price":self.calculate_total_price()}
+        result.append(total_price)
         return result
             
     
