@@ -60,6 +60,10 @@ class Cart:
                 self.items.remove(item)
                 return self.items
             
+    def clear_cart(self):
+        self.items = []
+        return self.items
+            
     def calculate_total_price(self):
         total_price = 0
         for item in self.items:
@@ -74,6 +78,10 @@ class Cart:
             total_price = {"total_price":self.calculate_total_price()}
             result.append(total_price)
             return result
-    
+        
+    def get_cart(self):
+        return self.items
+
+
     
    

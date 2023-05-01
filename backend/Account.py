@@ -1,4 +1,5 @@
 from Cart import *
+from Order import *
 
 class Account:
     def __init__(self, username ,password):
@@ -39,6 +40,7 @@ class Customer(Account):
         self.__address = ''
         self.__history_purchase = []
         self.__cart = Cart()
+        self.__orders = []
         self.__account_id = Customer.id
         Customer.id += 1
 
@@ -57,6 +59,9 @@ class Customer(Account):
     @property
     def cart(self):
         return self.__cart
+    @property
+    def orders(self):
+        return self.__orders
     @property
     def account_id(self):
         return self.__account_id
@@ -77,3 +82,24 @@ class Customer(Account):
     def cart(self, new_cart):
         self.__cart = new_cart
         return self.__cart
+    @orders.setter
+    def orders(self, new_orders):
+        self.__orders = new_orders
+        return self.__orders
+    
+    def make_order(self):
+        new_orders = Order(self.cart.calculate_total_price(),self.username)
+        for item in self.cart.items:
+            product = item.product
+            quantity = item.quantity
+            price = item.calculate_price()
+            item = {"product":product.name,"quantity":quantity,"price":price}
+            new_orders.order_item.append(item)
+        self.cart.clear_cart()
+        self.orders.append(new_orders)
+        return new_orders
+    
+    def get_order(self, order_id):
+        for order in self.orders:
+            if order_id == order.order_id:
+                return order

@@ -4,9 +4,14 @@ from Product import *
 from ProductCatalog import *
 from Cart import *
 from Review import *
+from Payment import *
+from Order import *
 
 product_catalog = ProductCatalog()
 account_list = AccountList()
+shoppay = ShopPay()
+paypal = Paypal()
+googlepay = GooglePay()
 
 product1 = Product(name="Product1", price=100, promotion_price=None, overview='good', quantity=5, category='keyboard')
 product2 = Product(name="Product2", price=200, promotion_price=None, overview='good', quantity=3, category='keyboard')
@@ -54,5 +59,5 @@ cart1 = customer1.cart
 cart1.add_product_to_cart(product1,2)
 cart1.add_product_to_cart(product2,2)
 cart1.add_product_to_cart(product3,2)
-print(cart1.view_cart())
 
+customer1.make_order()

@@ -88,4 +88,21 @@ async def add_review(data:dict = Body(...)):
 async def view_review(product_data:dict = Body(...)):
     product = product_catalog.get_product(product_data.get("product_id"))
     return product.view_review()
+
+@app.post("/make_order")
+async def make_order(account_data:dict = Body(...)):
+    for account in account_list.accounts:
+        if account.account_id == account_data.get("account_id"):
+            return account.make_order()
         
+
+@app.put("/payment")
+async def payment(data:dict = Body(...)):
+    account = account_list.get_account(data.get("account_id"))
+    order = account.get_order(data.get("order_id"))
+    if data.get("payment") == "Shoppay":
+        return shoppay.pay(order)
+    if data.get("payment") == "Paypal":
+        return paypal.pay(order)
+    if data.get("payment") == "Googlepay":
+        return googlepay.pay(order)
