@@ -27,3 +27,14 @@ async def view_product(product_id : int):
 @app.get("/{category}")
 async def view_category(category : str):
     return product_catalog.get_by_category(category)
+
+@app.post("/login")
+async def login(account_data:dict = Body(...)):
+    try:
+        account = account_list.verify_login(account_data.get("username"),account_data.get("password"))
+        if account:
+            return {"message":"Login success","account":account}
+        else:
+            return {"message":"Failed to login"}
+    except:
+        return {"message":"Failed"}

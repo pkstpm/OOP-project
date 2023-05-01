@@ -25,3 +25,9 @@ class AccountList:
                 return False
         return True
             
+    def verify_login(self, username, password):
+        for account in self.accounts:
+            if username == account.username and password == account.password:
+                return account
+            
+        
