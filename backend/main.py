@@ -43,5 +43,7 @@ product_catalog.add_product(switch1)
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
-print(product_catalog.get_by_category("switch"))
+cart = Cart()
+cart.add_product_to_cart(product1,2)
+print(cart.view_cart())
 
