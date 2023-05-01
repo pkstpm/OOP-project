@@ -92,7 +92,37 @@ class Product:
         
     def add_quantity(self, quantity):
         self.quantity += quantity
+
+    def add_review(self, review):
+        try:
+            self.reviews.append(review)
+            return review
+        except:
+            return False
+        
+    def remove_review(self, review_id):
+        for review in self.reviews:
+            if review.review_id == review_id:
+                self.reviews.remove(review)
+                return True
+            
+    def calculate_average_rating(self):
+        if not self.reviews:
+            return 0
+        total_rating = sum(review.rating for review in self.reviews)
+        average_rating = total_rating / len(self.reviews)
+        return average_rating
     
+    def view_review(self):
+        if not self.reviews:
+            return {"message":"this product not have review"}
+        else:
+            result = [{"rating":review.rating, "name":review.name} for review in self.reviews]
+            average_rating = {"average_rating":self.calculate_average_rating()}
+            result.append(average_rating)
+            return result
+
+        
 class Keyboard(Product):
     def __init__(self, name, price, overview, quantity, keyboard_switch, keyboard_keycap, keys, casecolor, promotion_price=None, status="available"):
         super().__init__(name, price, overview, quantity, promotion_price, 'keyboard', status)

@@ -60,6 +60,7 @@ async def view_cart(account_data:dict = Body(...)):
     cart = account.cart
     return cart.view_cart()
 
+# add_product_to_cart
 @app.post("/cart/add_item")
 async def add_product_to_cart(data:dict = Body(...)):
     try:
@@ -69,3 +70,22 @@ async def add_product_to_cart(data:dict = Body(...)):
         return cart.add_product_to_cart(product,data.setdefault("quantity",1))
     except:
         return 'Failed'
+
+# add_review
+@app.post("/product/review/add_review")
+async def add_review(data:dict = Body(...)):
+    try:
+        account = account_list.get_account(data.get("account_id"))
+        product = product_catalog.get_product(data.get("product_id"))
+        new_review = Review(data.get("rating"),account.name)
+        check = product.add_review(new_review)
+        if check:
+            return {"message":"Success","review":new_review}
+    except:
+        return {"message":"Failed"}
+    
+@app.post("/product/review")
+async def view_review(product_data:dict = Body(...)):
+    product = product_catalog.get_product(product_data.get("product_id"))
+    return product.view_review()
+        

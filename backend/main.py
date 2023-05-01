@@ -27,6 +27,10 @@ switch1 = Switch(name="Switch1", price=5, overview="o", quantity=3, variation=No
 customer1 = Customer(username="Pongsapat", password="1234", email="65010660@kmitl.ac.th", name="Poon")
 customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", name="Jacky")
 
+
+review1 = Review(rating=5,name="Poon")
+review2 = Review(rating=3,name="Jacky")
+
 product_catalog.add_product(product1)
 product_catalog.add_product(product2)
 product_catalog.add_product(product3)
@@ -40,13 +44,15 @@ product_catalog.add_product(keyboard6)
 product_catalog.add_product(keycap1)
 product_catalog.add_product(switch1)
 
+product1.add_review(review1)
+product1.add_review(review2)
+
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
 cart1 = customer1.cart
 cart1.add_product_to_cart(product1,2)
-cart1.add_product_to_cart(product1,4)
-cart1.remove_product_from_cart(0)
-cart1.add_product_to_cart(product1,5)
+cart1.add_product_to_cart(product2,2)
+cart1.add_product_to_cart(product3,2)
 print(cart1.view_cart())
 
