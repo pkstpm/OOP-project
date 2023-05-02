@@ -97,6 +97,8 @@ class Customer(Account):
             new_orders.order_item.append(item)
         self.cart.clear_cart()
         self.orders.append(new_orders)
+        address = {"addresss":self.address}
+        self.orders.append(address)
         return new_orders
     
     def get_order(self, order_id):
