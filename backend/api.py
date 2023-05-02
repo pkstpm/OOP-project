@@ -37,7 +37,7 @@ async def login(account_data:dict = Body(...)):
             if account.account_id == "admin":
                 return {"message":"Login success","account":account,"role":"admin"}
             elif  isinstance(account.account_id,int):
-                return {"message":"Admin","account":account,"role":"customer"}
+                return {"message":"Login success","account":account,"role":"customer"}
         else:
             return {"message":"Failed to login"}
     except:
