@@ -37,8 +37,8 @@ customer1 = Customer(username="Pongsapat", password="1234", email="65010660@kmit
 customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", name="Jacky")
 
 
-review1 = Review(rating=5,name="Poon")
-review2 = Review(rating=3,name="Jacky")
+review1 = Review(rating=5,name="Poon",account_id=0)
+review2 = Review(rating=3,name="Jacky",account_id=0)
 
 product_catalog.add_product(product1)
 product_catalog.add_product(product2)
