@@ -34,12 +34,15 @@ async def login(account_data:dict = Body(...)):
     try:
         account = account_list.verify_login(account_data.get("username"),account_data.get("password"))
         if account:
-            return {"message":"Login success","account":account}
+            if account.account_id == "admin":
+                return {"message":"Login success","account":account,"role":"admin"}
+            elif account.account_id == int:
+                return {"message":"Admin","account":account,"role":"customer"}
         else:
             return {"message":"Failed to login"}
     except:
         return {"message":"Failed"}
-    
+
 # register
 @app.post("/register")
 async def register(account_data:dict = Body(...)):
@@ -91,9 +94,9 @@ async def view_review(product_data:dict = Body(...)):
 
 @app.post("/make_order")
 async def make_order(account_data:dict = Body(...)):
-    for account in account_list.accounts:
-        if account.account_id == account_data.get("account_id"):
-            return account.make_order()
+    account_id = account_data.get("account_id")
+    account = account_list.get_account(account_id)
+    return account.make_order()
         
 
 @app.put("/payment")
