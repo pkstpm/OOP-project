@@ -24,10 +24,10 @@ class Item:
     def calculate_price(self):
         price = 0
         if self.product.promotion_price:
-            price = self.product.promotion_price * self.quantity
+            price += self.product.promotion_price * self.quantity
             return price
         else:
-            price = self.product.price * self.quantity
+            price += self.product.price * self.quantity
             return price
 
 class Cart:
@@ -42,26 +42,46 @@ class Cart:
         self.__items = new_items
         return self.__items
     
-    def add_product_to_cart(self, product, quantity=1):
-        if product.check_status():
-            if product.reduce_quantity(quantity):
-                item = self.check_product(product)
-                if item:
-                    item.quantity += quantity
-                    return self.items
-                else:
-                    new_item = Item(product,quantity)
-                    self.items.append(new_item)
-                    return self.items
-                
-    def remove_product_from_cart(self, product):
-        item = self.check_product(product)
-        if item:
-            item.product.add_quantity(item.quantity)
-            self.items.remove(item)
-            return self.items
-
-    def check_product(self, product):
+    def add_product_to_cart(self, product, quantity = 1):
+        if product.check_status() == True:
+            if product.reduce_quantity(quantity) == True:
+                for item in self.items:
+                    if item.product.product_id == product.product_id:
+                        item.quantity += quantity
+                        return item
+                new_item = Item(product,quantity)
+                self.items.append(new_item)
+                return new_item
+    
+    def remove_product_from_cart(self, product_id):
         for item in self.items:
-            if product == item.product:
-                return item
+            if product_id == item.product.product_id:
+                item.product.add_quantity(item.quantity)
+                self.items.remove(item)
+                return self.items
+            
+    def clear_cart(self):
+        self.items = []
+        return self.items
+            
+    def calculate_total_price(self):
+        total_price = 0
+        for item in self.items:
+            total_price += item.calculate_price()
+        return total_price
+            
+    def view_cart(self):
+        if not self.items:
+            return {"message":"Your cart is empty"}
+        else:
+            result = [{"name":item.product.name, "quantity":item.quantity, "price":item.calculate_price()} for item in self.items]
+            total_price = {"total_price":self.calculate_total_price()}
+            result.append(total_price)
+            return result
+        
+    def get_cart(self):
+        return self.items
+
+
+    
+   

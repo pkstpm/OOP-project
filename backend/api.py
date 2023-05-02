@@ -1,77 +1,130 @@
-from typing import Union
-
 from fastapi import FastAPI , Body
-
 from main import *
 
 app = FastAPI()
 
+#search product
+@app.get("/product/search_product/{name}")
+async def search_by_name(name : str):
+    return product_catalog.search_product_by_name(name)
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+#search by category
+@app.get("/product/{category}/search_product/{name}")
+async def search_by_category(name : str , category : str):
+    return product_catalog.search_product_by_category(name,category)
 
+#view_catalog
+@app.get("/product")
+async def view_catalog():
+    return product_catalog.products
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+#view_product
+@app.get("/product/{product_id}")
+async def view_product(product_id : int):
+    return product_catalog.get_product(product_id)
 
-@app.post("/productcatalog/product" , tags=['Product'])
-async def add_product(product_data:dict = Body(...)):
-    new_product = Product(product_data.get("name"),product_data.get("price"),product_data.get("overview"),product_data.get("quantity"),product_data.setdefault("promotion_price",None))
-    data = catalog.add_product(new_product)
-    if new_product and data:
-        return {"message":"Complete","catalog":data}
-    else:
+# view_category
+@app.get("/{category}")
+async def view_category(category : str):
+    return product_catalog.get_by_category(category)
+
+# login
+@app.post("/login")
+async def login(account_data:dict = Body(...)):
+    try:
+        account = account_list.verify_login(account_data.get("username"),account_data.get("password"))
+        if account:
+            if account.account_id == "admin":
+                return {"message":"Login success","account":account,"role":"admin"}
+            elif  isinstance(account.account_id,int):
+                return {"message":"Admin","account":account,"role":"customer"}
+        else:
+            return {"message":"Failed to login"}
+    except:
         return {"message":"Failed"}
 
-@app.delete("/productcatalog/" , tags=['Product'])
-async def remove_product(product_data:dict = Body(...)):
+# register
+@app.post("/register")
+async def register(account_data:dict = Body(...)):
     try:
-        return catalog.remove_product(product_data.get("product_id"))
+        if account_list.verify_account(account_data.get("username"),account_data.get("email")) == True:
+            if account_list.check_password(account_data.get("password"),account_data.get("check_password")) == True:
+                new_account = Customer(account_data.get("username"),account_data.get("password"),account_data.get("email"),account_data.get("name"))
+        data = account_list.add_account(new_account)
+        if new_account and data:
+            return {"message":"Success","account":new_account}
     except:
-        return 'Cant remove product'
-    
-@app.post("/account" , tags=['Account'])
-async def create_account(account_data:dict = Body(...)):
-    new_account , cart = accountlist.register(account_data.get("username"),account_data.get("password"),account_data.get("check_password"),account_data.get("email"),account_data.get("name"))
-    data = accountlist.add_account(new_account)
-    if data:
-        return {"account" : new_account , "cart" : cart}
-    else:
-        return 'Failed'
-    
-@app.get("/account" , tags=['Account'])
-async def login(username,password:int):
+        return {"message":"Failed"}
+
+# view_cart
+@app.post("/cart/")
+async def view_cart(account_data:dict = Body(...)):
+    account = account_list.get_account(account_data.get("account_id"))
+    cart = account.cart
+    return cart.view_cart()
+
+# add_product_to_cart
+@app.post("/cart/add_item")
+async def add_product_to_cart(data:dict = Body(...)):
     try:
-        account , cart =  accountlist.login(username,password)
-        return account , cart
+        account = account_list.get_account(data.get("account_id"))
+        product = product_catalog.get_product(data.get("product_id"))
+        cart = account.cart
+        return cart.add_product_to_cart(product,data.setdefault("quantity",1))
     except:
         return 'Failed'
-    
-@app.post("/cart" , tags=['Cart'])
-async def add_product_to_cart(item_data:dict = Body(...)):
-    for product in catalog.products:
-        if product.product_id == item_data.get("product_id"):
-            return cart2.add_product_to_cart(product,item_data.get("quantity"))
+
+# add_review
+@app.post("/product/review/add_review")
+async def add_review(data:dict = Body(...)):
+    try:
+        account = account_list.get_account(data.get("account_id"))
+        product = product_catalog.get_product(data.get("product_id"))
+        new_review = Review(data.get("rating"),account.name)
+        check = product.add_review(new_review)
+        if check:
+            return {"message":"Success","review":new_review}
+    except:
+        return {"message":"Failed"}
+
+# view_review
+@app.post("/product/review")
+async def view_review(product_data:dict = Body(...)):
+    product = product_catalog.get_product(product_data.get("product_id"))
+    return product.view_review()
+
+# make_order
+@app.post("/make_order")
+async def make_order(account_data:dict = Body(...)):
+    account_id = account_data.get("account_id")
+    account = account_list.get_account(account_id)
+    return account.make_order()
         
-@app.delete("/cart" , tags=['Cart'])
-async def remove_product_from_cart(item_data:dict = Body(...)):
-    for product in catalog.products:
-        if product.product_id == item_data.get("product_id"):
-            return cart2.remove_product_from_cart(product)
-        
-@app.post("/reviews" , tags=['Review'])
-async def add_review(review_data:dict = Body(...)):
-    for product in catalog.products:
-        if product.product_id == review_data.get("product_id"):
-            new_review = Review(review_data.get("rating"),review_data.get("name"))
-            product.add_review(new_review)
-            return product
-        
-@app.delete("/reviews" , tags=['Review'])
-async def remove_review(review_data:dict = Body(...)):
-    for product in catalog.products:
-        if product.product_id == review_data.get("product_id"):
-            product.remove_review(review_data.get("review_id"))
-            return product
+# payment
+@app.put("/payment")
+async def payment(data:dict = Body(...)):
+    account = account_list.get_account(data.get("account_id"))
+    order = account.get_order(data.get("order_id"))
+    if data.get("payment") == "Shoppay":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
+        return shoppay.pay(order)
+    if data.get("payment") == "Paypal":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
+        return paypal.pay(order)
+    if data.get("payment") == "Googlepay":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
+        return googlepay.pay(order)
+
+# edit_profile
+@app.put("/edit_profile")
+async def edit_profile(account_data:dict = Body(...)):
+    try:
+        account =  account_list.get_account(account_data.get("account_id"))
+        account.edit_profile(account_data.get("name"),account_data.get("address"))
+        if account:
+            return {"message":"edit profile success","account":account}
+    except:
+        return {"message":"failed to edit profile"}

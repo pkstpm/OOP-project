@@ -13,16 +13,36 @@ class ProductCatalog:
         return self.__products
     
     def add_product(self, product):
-        if isinstance(product,Product):
+        try:
             self.products.append(product)
-            return self.products
-
-    def remove_product(self, product_id):
-        product = self.check_product(product_id)
-        self.products.remove(product)
-        return self.products
-
-    def check_product(self, product_id):
+            return product
+        except:
+            return False
+        
+    def search_product_by_name(self, name):
+        result = []
+        for product in self.products:
+            if name.lower() in product.name.lower() or name.lower() in product.category.lower():
+                result.append(product)
+        return result
+    
+    def search_product_by_category(self, name, category):
+        result = []
+        for product in self.products:
+            if category == product.category and name.lower() in product.name.lower():
+                result.append(product)
+        return result
+    
+    def get_product(self, product_id):
         for product in self.products:
             if product.product_id == product_id:
                 return product
+            
+    def get_by_category(self, category):
+        result = []
+        for product in self.products:
+            if category == product.category:
+                result.append(product)
+        return result
+    
+    
