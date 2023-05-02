@@ -10,15 +10,21 @@ class Payment(ABC):
 
 class ShopPay(Payment):
     def pay(self, order):
-        order.status = "Paid"
-        return order
+        if order.status == "Paid":
+            return {"message":"this order already pay"}
+        else:
+            order.status = "Paid"
 
 class Paypal(Payment):
     def pay(self, order):
-        order.status = "Paid"
-        return order
+        if order.status == "Paid":
+            return {"message":"this order already pay"}
+        else:
+            order.status = "Paid"
 
 class GooglePay(Payment):
     def pay(self, order):
-        order.status = "Paid"
-        return order
+        if order.status == "Paid":
+            return {"message":"this order already pay"}
+        else:
+            order.status = "Paid"

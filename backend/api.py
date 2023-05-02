@@ -36,7 +36,7 @@ async def login(account_data:dict = Body(...)):
         if account:
             if account.account_id == "admin":
                 return {"message":"Login success","account":account,"role":"admin"}
-            elif account.account_id == int:
+            elif  isinstance(account.account_id,int):
                 return {"message":"Admin","account":account,"role":"customer"}
         else:
             return {"message":"Failed to login"}
@@ -86,19 +86,21 @@ async def add_review(data:dict = Body(...)):
             return {"message":"Success","review":new_review}
     except:
         return {"message":"Failed"}
-    
+
+# view_review
 @app.post("/product/review")
 async def view_review(product_data:dict = Body(...)):
     product = product_catalog.get_product(product_data.get("product_id"))
     return product.view_review()
 
+# make_order
 @app.post("/make_order")
 async def make_order(account_data:dict = Body(...)):
     account_id = account_data.get("account_id")
     account = account_list.get_account(account_id)
     return account.make_order()
         
-
+# payment
 @app.put("/payment")
 async def payment(data:dict = Body(...)):
     account = account_list.get_account(data.get("account_id"))
@@ -109,3 +111,12 @@ async def payment(data:dict = Body(...)):
         return paypal.pay(order)
     if data.get("payment") == "Googlepay":
         return googlepay.pay(order)
+    
+@app.put("/edit_profile")
+async def edit_profile(account_data:dict = Body(...)):
+    try:
+        account =  account_list.edit_profile(account_data.get("account_id"),account_data.get("name"),account_data.get("address"))
+        if account:
+            return {"message":"edit profile success","account":account}
+    except:
+        return {"message":"failed to edit profile"}
