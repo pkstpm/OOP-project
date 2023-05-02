@@ -29,6 +29,10 @@ keycap1 = Keycap(name="Keycap1", price=10, overview="oooo", quantity=4, kit="12"
 
 switch1 = Switch(name="Switch1", price=5, overview="o", quantity=3, variation=None, spring_weight=20, type_switch="linear")
 
+admin1 = Admin(username="admin1",password="admin1")
+admin1 = Admin(username="admin2",password="admin2")
+admin1 = Admin(username="admin3",password="admin3")
+
 customer1 = Customer(username="Pongsapat", password="1234", email="65010660@kmitl.ac.th", name="Poon")
 customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", name="Jacky")
 
@@ -57,9 +61,9 @@ account_list.add_account(customer2)
 
 cart1 = customer1.cart
 cart1.add_product_to_cart(product1,2)
-cart1.add_product_to_cart(product2,2)
-cart1.add_product_to_cart(product3,2)
 
-account_list.verify_login("Anucha","6969")
+order1 = customer1.make_order()
 
-customer1.make_order()
+paypal.pay(order1)
+customer1.add_history_purchase(order1)
+customer1.orders.remove(order1)

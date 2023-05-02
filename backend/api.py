@@ -73,6 +73,17 @@ async def add_product_to_cart(data:dict = Body(...)):
         return cart.add_product_to_cart(product,data.setdefault("quantity",1))
     except:
         return 'Failed'
+    
+# remove_product_from_cart
+@app.put("/cart/remove_item/")
+async def remove_product_from_cart(data:dict = Body(...)):
+    try:
+        account =  account_list.get_account(data.get("account_id"))
+        cart = account.cart
+        cart.remove_product_from_cart(data.get("product_id"))
+        return cart
+    except:
+        return 'Failed'
 
 # add_review
 @app.post("/product/review/add_review")
@@ -96,9 +107,21 @@ async def view_review(product_data:dict = Body(...)):
 # make_order
 @app.post("/make_order")
 async def make_order(account_data:dict = Body(...)):
-    account_id = account_data.get("account_id")
-    account = account_list.get_account(account_id)
+    account =  account_list.get_account(account_data.get("account_id"))
     return account.make_order()
+
+# cancel order
+@app.post("/cancel_order")
+async def cencel_order(data:dict = Body(...)):
+    account =  account_list.get_account(data.get("account_id"))
+    account.cancel_order(data.get("order_id"))
+    return account.cart
+
+@app.post("/view_order/")
+async def view_order(data:dict = Body(...)):
+    account =  account_list.get_account(data.get("account_id"))
+    order = account.get_order(data.get("order_id"))
+    return order
         
 # payment
 @app.put("/payment")
@@ -128,3 +151,8 @@ async def edit_profile(account_data:dict = Body(...)):
             return {"message":"edit profile success","account":account}
     except:
         return {"message":"failed to edit profile"}
+    
+@app.post("/view_history_purchase")
+async def view_history_purchase(account_data:dict = Body(...)):
+    account = account_data.get("account_id")
+    return account.history_purchase
