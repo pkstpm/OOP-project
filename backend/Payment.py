@@ -14,6 +14,7 @@ class ShopPay(Payment):
             return {"message":"this order already pay"}
         else:
             order.status = "Paid"
+            return {"message":"Success","order":order}
 
 class Paypal(Payment):
     def pay(self, order):
@@ -21,6 +22,7 @@ class Paypal(Payment):
             return {"message":"this order already pay"}
         else:
             order.status = "Paid"
+            return {"message":"Success","order":order}
 
 class GooglePay(Payment):
     def pay(self, order):
@@ -28,3 +30,4 @@ class GooglePay(Payment):
             return {"message":"this order already pay"}
         else:
             order.status = "Paid"
+            return {"message":"Success","order":order}

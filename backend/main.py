@@ -63,4 +63,3 @@ cart1.add_product_to_cart(product3,2)
 account_list.verify_login("Anucha","6969")
 
 customer1.make_order()
-account_list.edit_profile(0,"sh","nn")

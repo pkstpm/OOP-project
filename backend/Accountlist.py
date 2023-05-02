@@ -39,11 +39,5 @@ class AccountList:
         if password == check_password:
             return True
         return False
-    
-    def edit_profile(self, account_id, name, address):
-        account = self.get_account(account_id)
-        account.name = name
-        account.address = address
-        return account
             
         

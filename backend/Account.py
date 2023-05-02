@@ -103,3 +103,10 @@ class Customer(Account):
         for order in self.orders:
             if order_id == order.order_id:
                 return order
+            
+    def edit_profile(self, name, address):
+        self.name = name
+        self.address = address
+
+    def add_history_purchase(self, order):
+        self.history_purchase.append(order)

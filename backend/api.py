@@ -106,16 +106,24 @@ async def payment(data:dict = Body(...)):
     account = account_list.get_account(data.get("account_id"))
     order = account.get_order(data.get("order_id"))
     if data.get("payment") == "Shoppay":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
         return shoppay.pay(order)
     if data.get("payment") == "Paypal":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
         return paypal.pay(order)
     if data.get("payment") == "Googlepay":
+        account.add_history_purchase(order)
+        account.orders.remove(order)
         return googlepay.pay(order)
-    
+
+# edit_profile
 @app.put("/edit_profile")
 async def edit_profile(account_data:dict = Body(...)):
     try:
-        account =  account_list.edit_profile(account_data.get("account_id"),account_data.get("name"),account_data.get("address"))
+        account =  account_list.get_account(account_data.get("account_id"))
+        account.edit_profile(account_data.get("name"),account_data.get("address"))
         if account:
             return {"message":"edit profile success","account":account}
     except:
