@@ -100,9 +100,9 @@ class Product:
         except:
             return False
         
-    def remove_review(self, review_id):
+    def remove_review(self, review_id, account_id):
         for review in self.reviews:
-            if review.review_id == review_id:
+            if review.review_id == review_id and review.account_id == account_id:
                 self.reviews.remove(review)
                 return True
             
