@@ -4,9 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = ["*"]  # replace this with your list of allowed origins
+origins = [
+    "http://localhost:3000",
+]
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -14,7 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 #search product
 @app.get("/product/search_product/{name}")
 async def search_by_name(name : str):
@@ -71,6 +71,7 @@ async def register(account_data:dict = Body(...)):
 # view_cart
 @app.post("/cart")
 async def view_cart(account_data:dict = Body(...)):
+    print(account_data.get("account_id"))
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
     return cart.view_cart()

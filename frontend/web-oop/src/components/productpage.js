@@ -1,7 +1,7 @@
-import { Link, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import { useState,useEffect} from 'react';
 import "../styles/product.css"
-import Cartpage from './cart';
+
 
 function Product() {
     const { _product_id } = useParams();

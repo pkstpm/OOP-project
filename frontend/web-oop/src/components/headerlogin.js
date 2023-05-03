@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 function Headerlogin(props) {
     return (
-        <header className="border-b-2 border-black">
+        <header className="border-b-2 border-black sticky">
         <nav className="flex justify-between items-center px-[15%]">
           <link
             rel="stylesheet"

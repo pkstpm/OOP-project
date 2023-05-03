@@ -74,13 +74,13 @@ function Navbar() {
     }, []);
 
     return (
-        <div>
-            {isLoggedIn ?  <Headerlogin searchclick={searchclick} loginclick={handleLoginClick} signupclick={handleSignupClick} cartclick={handleCartClick} op_userclick={handleOp_userClick}/>:<Header searchclick={searchclick} loginclick={handleLoginClick}  signupclick={handleSignupClick}/> }
+        <div className='sticky top-0 bg-white z-50 '>
+            {isLoggedIn ?  <Headerlogin searchclick={searchclick} loginclick={handleLoginClick} signupclick={handleSignupClick} cartclick={handleCartClick} op_userclick={handleOp_userClick} />:<Header searchclick={searchclick} loginclick={handleLoginClick}  signupclick={handleSignupClick}/> }
             
             {infoVisible && <Search  ref={infoRef} value={searchText} onValueChange={setsearchText} />}
             {showLoginPage && <Loginpage onClose={handleLoginPageClick} clicksignup={ff}/>}
             {showSignupPage && <Loginpage  onClose={handleSignupPageClick}  clicksignup={tt}/>}
-            {showCartPage && <Cartpage onClose={handleCartbgClick} />}
+            {showCartPage && <Cartpage onClose={handleCartbgClick} isShow={showCartPage}/>}
             {showOp_userPage && <Op_userpage onClose={handleOp_userbgClick} />}
             {/* <Headerlogin/> */}
            

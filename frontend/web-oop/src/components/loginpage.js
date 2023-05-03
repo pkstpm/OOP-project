@@ -69,9 +69,9 @@ function Loginpage(props) {
         console.log(data)
         if(data && data.message === 'Success'){
             localStorage.setItem('isLoggedIn', true); 
-            localStorage.setItem('role', 'Custommer');
-            console.log('login',data.account)
-            localStorage.setItem('user',data.account);
+            localStorage.setItem('role', data.role);
+            localStorage.setItem('userId',data.account._Customer__account_id);
+            localStorage.setItem('account', JSON.stringify(data.account));
             props.onClose();
             window.location.reload()
         }
@@ -102,6 +102,7 @@ function Loginpage(props) {
             localStorage.setItem('isLoggedIn', true); 
             localStorage.setItem('role', data.role);
             localStorage.setItem('userId',data.account._Customer__account_id);
+            localStorage.setItem('account', JSON.stringify(data.account));
             props.onClose();
             window.location.reload()
         }

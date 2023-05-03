@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/cart.css"
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+
 const products = [
     {
       name: 'Product 1',
@@ -20,21 +20,55 @@ const products = [
     }
   ];
 
+
+
 function Cartpage(props) {
-    const [showCart, setShowCart] = useState(true);
-    const totalPrice = products.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+    const [userId, setUserId] = useState(null);
+    const [showCart, setShowCart] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [cartItem, setCartItem] = useState([])
+   
+    useEffect(() => {
+        setShowCart(props.isShow)
+        const storedUserId = localStorage.getItem('userId');
+        if(storedUserId){
+          setUserId(+storedUserId)   
+        }
+        const playlode = JSON.stringify({account_id :userId});
+       if(  userId !== null) {
+       fetch("http://127.0.0.1:8000/cart", {
+                method: "POST",
+                body: playlode,
+                headers: { 'Content-Type': 'application/json' },
+              })
+                .then((response) => response.json()
+                )
+                .then((data) => {
+                 
+                   if(data.message != 'Your cart is empty'){
+                    setCartItem(data)
+                   }
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+              }
     
+      }, [showCart]);
+
     return (
-        <div className={`fixed right-0 h-screen w-1/4 bg-gray-800 ${showCart ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-500 ease-in-out`}>
+      <div class="relative">
+        <div className={`fixed right-0 h-full w-1/4 bg-gray-800 ${showCart ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-500 ease-in-out z-50`}>
         <div className="flex justify-between items-center px-4 py-2 border-b border-gray-700">
           <h2 className="text-lg font-semibold text-white">Shopping Cart</h2>
-          <button className="text-white" onClick={() => setShowCart(false)}>Close</button>
+          <button className="bg-indigo-950 text-white" onClick={() =>{setShowCart(false); props.onClose() }}>Close</button>
         </div>
         <div className="p-4">
-          {products.map(product => (
+          {cartItem.map(product => (
             <div key={product.name} className="flex justify-between items-center mb-4">
-              <p className="text-white">{product.name} ({product.quantity})</p>
-              <p className="text-white">{product.price * product.quantity}</p>
+              <div className="inline"><button className="inline-block bg-transparent border-transparent text-red-500 me-3"> X </button>
+              <p className="text-white inline-block">{product.name} ({product.quantity})</p></div>
+              <p className="text-white">{product.price}</p>
             </div>
           ))}
           <div className="flex justify-between items-center border-t border-gray-700 mt-4 pt-2">
@@ -46,6 +80,7 @@ function Cartpage(props) {
           <p className="text-white">Continue Shopping</p>
           <a href="/checkout" className="text-white">Checkout</a>
         </div>
+      </div>
       </div>
     )
     // return (
