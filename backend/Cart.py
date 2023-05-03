@@ -70,13 +70,11 @@ class Cart:
             total_price += item.calculate_price()
         return total_price
             
-    def view_cart(self):
+    def get_item(self):
         if not self.items:
             return {"message":"Your cart is empty"}
         else:
             result = [{"name":item.product.name, "quantity":item.quantity, "price":item.calculate_price()} for item in self.items]
-            total_price = {"total_price":self.calculate_total_price()}
-            result.append(total_price)
             return result
         
     def get_cart(self):

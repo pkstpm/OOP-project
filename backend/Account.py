@@ -86,18 +86,20 @@ class Customer(Account):
     def orders(self, new_orders):
         self.__orders = new_orders
         return self.__orders
-    
+
     def make_order(self):
-        new_orders = Order(self.cart.calculate_total_price(),self.username)
-        for item in self.cart.items:
-            product = item.product
-            quantity = item.quantity
-            price = item.calculate_price()
-            item = {"product":product.name,"quantity":quantity,"price":price}
-            new_orders.order_item.append(item)
+        new_order = Order(self.cart.items,self.username,self.address)
         self.cart.clear_cart()
-        self.orders.append(new_orders)
-        return new_orders
+        self.orders.append(new_order)
+        return new_order
+        
+    
+    def cancel_order(self, order_id):
+        order = self.get_order(order_id)
+        item = order.order_item
+        self.cart.items.append(item)
+        self.orders.remove(order)
+        return self.cart
     
     def get_order(self, order_id):
         for order in self.orders:
