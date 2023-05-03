@@ -19,6 +19,9 @@ class ProductCatalog:
         except:
             return False
         
+    def remove_product(self, product):
+        self.products.remove(product)
+        
     def search_product_by_name(self, name):
         result = []
         for product in self.products:
