@@ -61,7 +61,8 @@ async def register(account_data:dict = Body(...)):
 async def view_cart(account_data:dict = Body(...)):
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
-    return cart.view_cart()
+    item = cart.get_item()
+    return {"item":item,"total_price":cart.calculate_total_price()}
 
 # add_product_to_cart
 @app.post("/cart/add_item")
@@ -121,7 +122,7 @@ async def make_order(account_data:dict = Body(...)):
 
 # cancel_order
 @app.post("/cancel_order")
-async def cencel_order(data:dict = Body(...)):
+async def cancel_order(data:dict = Body(...)):
     account =  account_list.get_account(data.get("account_id"))
     account.cancel_order(data.get("order_id"))
     return account.cart
