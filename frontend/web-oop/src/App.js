@@ -44,6 +44,7 @@ import Home from './components/navbar';
 import Cartpage from './components/cart';
 import ProfilePage from './components/profile';
 import Checkout from './components/checkout';
+import PurchaseHistory from './components/History';
 
 // import Loginpage from './page/loginpage';
 
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/cart" element={<Cartpage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/checkout/:id" element={<Checkout/>} />
+                <Route path="/history" element={<PurchaseHistory/>} />
 
                 
 

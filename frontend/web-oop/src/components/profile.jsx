@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
-function ProfilePage() {
+function ProfilePage(props) {
   const [account, setAccount] = useState(null);
   const [role, setRole] = useState('');
+
+  
 
   const getdata = function()  {
     const storedAccount = JSON.parse(localStorage.getItem('account'));
@@ -33,9 +35,10 @@ function ProfilePage() {
           <p className="text-gray-500 mt-2">{account._Customer__email}</p>
         </div>
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
+          <div className="px-4 py-5 sm:grid sm:grid-cols-2">
             <h3 className="text-lg leading-6 font-medium text-gray-900">Account Information</h3>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">View and update your account information.</p>
+            <p className="mt-1 max-w-2xl text-sm text-gray-500 sm:col-span-2">View and update your account information.</p>
+            <button href="#edit" onClick={props.loginclick} className="col-span-2 justify-end" class="rounded-none ..." >Edit Profile</button>
           </div>
           <div className="border-t border-gray-200">
             <dl>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Navbar from "../components/navbar";
-import "../styles/history.css";
+// import "../styles/history.css";
 
 
 const purchases = [
@@ -20,7 +20,7 @@ function PurchaseHistory() {
   return (
     
     <div>
-        <Navbar/>
+        
     <div className="py-[40px] max-w-md mx-auto">
     <h2 className="text-xl font-bold mb-4 mx-auto">Purchase History</h2>
         

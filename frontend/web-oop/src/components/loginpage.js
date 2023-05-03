@@ -239,7 +239,7 @@ function Loginpage(props) {
                                     </div>
                                     <button type="submit" className="btn" onClick={handleSubmitLogin}>Login</button>
                                     <div className="login-register">
-                                        <p>Not a member yet?  <a href="#signup" className="register-link" onClick={SignUpClick}>Sign up</a></p>
+                                        <p>Not a member yet?  <a href="#signup" className="register-link" onClick={handleSignUpClick}>Sign up</a></p>
                                     </div>
                                 </form>
                             </div>

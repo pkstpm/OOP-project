@@ -66,6 +66,15 @@ function Checkout (props){
                     <button onClick={handlepayClick}>Pay3
                     </button>
                 </div>
+                <div>
+                    -------------------------------------------------
+                </div>
+                <div>
+                    <h6>Address</h6>
+                    {/* <div>{userId && userId.address}</div> */}
+                    <input type="taxt" value={""}></input>
+                    <button> Submit</button>
+                </div>
 
             </div>
 
