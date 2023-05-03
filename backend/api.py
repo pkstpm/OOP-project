@@ -1,8 +1,20 @@
 from fastapi import FastAPI , Body
 from main import *
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 #search product
 @app.get("/product/search_product/{name}")
 async def search_by_name(name : str):
@@ -57,7 +69,7 @@ async def register(account_data:dict = Body(...)):
         return {"message":"Failed"}
 
 # view_cart
-@app.post("/cart/")
+@app.post("/cart")
 async def view_cart(account_data:dict = Body(...)):
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
@@ -67,13 +79,10 @@ async def view_cart(account_data:dict = Body(...)):
 # add_product_to_cart
 @app.post("/cart/add_item")
 async def add_product_to_cart(data:dict = Body(...)):
-    try:
-        account = account_list.get_account(data.get("account_id"))
-        product = product_catalog.get_product(data.get("product_id"))
-        cart = account.cart
-        return cart.add_product_to_cart(product,data.setdefault("quantity",1))
-    except:
-        return 'Failed'
+    account = account_list.get_account(data.get("account_id"))
+    product = product_catalog.get_product(data.get("product_id"))
+    cart = account.cart
+    return cart.add_product_to_cart(product,data.setdefault("quantity",1))
     
 # remove_product_from_cart
 @app.put("/cart/remove_item/")
@@ -117,22 +126,23 @@ async def view_review(product_data:dict = Body(...)):
 # make_order
 @app.post("/make_order")
 async def make_order(account_data:dict = Body(...)):
-    account =  account_list.get_account(account_data.get("account_id"))
-    return account.make_order()
+    account = account_list.get_account(account_data.get("account_id"))
+    order = account.make_order()
+    return {"data":order,"order_id":order.order_id}
 
 # cancel_order
 @app.post("/cancel_order")
-async def cancel_order(data:dict = Body(...)):
+async def cencel_order(data:dict = Body(...)):
     account =  account_list.get_account(data.get("account_id"))
     account.cancel_order(data.get("order_id"))
     return account.cart
 
 # view_order
-@app.post("/view_order/")
-async def view_order(data:dict = Body(...)):
-    account =  account_list.get_account(data.get("account_id"))
-    order = account.get_order(data.get("order_id"))
-    return order
+@app.get("/view_order/{account_id}/{order_id}")
+async def view_order(order_id : int,account_id : int):
+    account =  account_list.get_account(account_id)
+    order = account.get_order(order_id)
+    return {"item":order.view_order(),"total_price":order.total_price}
         
 # payment
 @app.put("/payment")
@@ -140,15 +150,24 @@ async def payment(data:dict = Body(...)):
     account = account_list.get_account(data.get("account_id"))
     order = account.get_order(data.get("order_id"))
     if data.get("payment") == "Shoppay":
-        account.add_history_purchase(order)
+        item = order.view_order()
+        date = datetime.datetime.now()
+        result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
+        account.add_history_purchase(result)
         account.orders.remove(order)
         return shoppay.pay(order)
     if data.get("payment") == "Paypal":
-        account.add_history_purchase(order)
+        item = order.view_order()
+        date = datetime.datetime.now()
+        result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
+        account.add_history_purchase(result)
         account.orders.remove(order)
         return paypal.pay(order)
     if data.get("payment") == "Googlepay":
-        account.add_history_purchase(order)
+        item = order.view_order()
+        date = datetime.datetime.now()
+        result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
+        account.add_history_purchase(result)
         account.orders.remove(order)
         return googlepay.pay(order)
 
@@ -164,9 +183,9 @@ async def edit_profile(account_data:dict = Body(...)):
         return {"message":"failed to edit profile"}
     
 # view_history_purchase
-@app.post("/view_history_purchase")
-async def view_history_purchase(account_data:dict = Body(...)):
-    account = account_data.get("account_id")
+@app.get("/view_history_purchase/{account_id}")
+async def view_history_purchase(account_id : int):
+    account = account_list.get_account(account_id)
     return account.history_purchase
 
 # create_product
