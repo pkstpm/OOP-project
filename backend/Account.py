@@ -88,7 +88,7 @@ class Customer(Account):
         return self.__orders
 
     def make_order(self):
-        new_order = Order(self.cart.items,self.username,self.address)
+        new_order = Order(self.cart.items,self.cart.calculate_total_price(),self.username,self.address)
         self.cart.clear_cart()
         self.orders.append(new_order)
         return new_order

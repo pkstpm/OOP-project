@@ -71,21 +71,18 @@ async def register(account_data:dict = Body(...)):
 # view_cart
 @app.post("/cart")
 async def view_cart(account_data:dict = Body(...)):
-    print(account_data.get("account_id"))
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
-    return cart.view_cart()
+    item = cart.get_item()
+    return {"item":item,"total_price":cart.calculate_total_price()}
 
 # add_product_to_cart
 @app.post("/cart/add_item")
 async def add_product_to_cart(data:dict = Body(...)):
-    try:
-        account = account_list.get_account(data.get("account_id"))
-        product = product_catalog.get_product(data.get("product_id"))
-        cart = account.cart
-        return cart.add_product_to_cart(product,data.setdefault("quantity",1))
-    except:
-        return 'Failed'
+    account = account_list.get_account(data.get("account_id"))
+    product = product_catalog.get_product(data.get("product_id"))
+    cart = account.cart
+    return cart.add_product_to_cart(product,data.setdefault("quantity",1))
     
 # remove_product_from_cart
 @app.put("/cart/remove_item/")
@@ -129,8 +126,9 @@ async def view_review(product_data:dict = Body(...)):
 # make_order
 @app.post("/make_order")
 async def make_order(account_data:dict = Body(...)):
-    account =  account_list.get_account(account_data.get("account_id"))
-    return account.make_order()
+    account = account_list.get_account(account_data.get("account_id"))
+    order = account.make_order()
+    return {"data":order,"order_id":order.order_id}
 
 # cancel_order
 @app.post("/cancel_order")
@@ -140,11 +138,11 @@ async def cencel_order(data:dict = Body(...)):
     return account.cart
 
 # view_order
-@app.post("/view_order/")
-async def view_order(data:dict = Body(...)):
-    account =  account_list.get_account(data.get("account_id"))
-    order = account.get_order(data.get("order_id"))
-    return order
+@app.get("/view_order/{account_id}/{order_id}")
+async def view_order(order_id : int,account_id : int):
+    account =  account_list.get_account(account_id)
+    order = account.get_order(order_id)
+    return {"item":order.view_order(),"total_price":order.total_price}
         
 # payment
 @app.put("/payment")

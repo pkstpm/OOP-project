@@ -57,7 +57,7 @@ const Products = () => {
                 <p className="card-text">{product._quantity}</p>
                 <span className="badge badge-primary">{product._category}</span>{' '}
                 <span className="badge badge-secondary">{product._status}</span>{' '}
-                { product._promotion_price ? (<h4 className="mt-3">{product._promotion_price}$ <del>{product._price}$</del></h4>): (<h4 className="mt-3">{product._price}</h4>)}
+                { product._promotion_price ? (<h4 className="mt-3">{product._promotion_price}฿ <del>{product._price}฿</del></h4>): (<h4 className="mt-3">{product._price}฿</h4>)}
                 <Link to={`/product/${product._product_id}`} >Read more</Link>
               </div>
 

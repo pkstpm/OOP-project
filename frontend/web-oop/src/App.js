@@ -43,6 +43,7 @@ import Product from './components/productpage';
 import Home from './components/navbar';
 import Cartpage from './components/cart';
 import ProfilePage from './components/profile';
+import Checkout from './components/checkout';
 
 // import Loginpage from './page/loginpage';
 
@@ -58,7 +59,7 @@ function App() {
                 <Route path="/product/:_product_id" element={<Product />} />
                 <Route path="/cart" element={<Cartpage />} />
                 <Route path="/profile" element={<ProfilePage />} />
-
+                <Route path="/checkout/:id" element={<Checkout/>} />
 
                 
 

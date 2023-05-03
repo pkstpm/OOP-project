@@ -88,10 +88,10 @@ function Product() {
                     <h1 class="display-5 fw-bolder">{data && data._name}</h1>
                     
                     { data && data._promotion_price ? (<div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through">{data && data._price}</span>
-                        <span>{data && data._promotion_price}</span>
+                        <span class="text-decoration-line-through">{data && data._price}฿</span>
+                        <span>{data && data._promotion_price}฿</span>
                     </div>): (<div class="fs-5 mb-5">
-                        <span>{data && data._price}</span>
+                        <span>{data && data._price}฿</span>
                     </div>)}
                    
                     
