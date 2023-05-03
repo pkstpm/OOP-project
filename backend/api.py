@@ -1,7 +1,19 @@
 from fastapi import FastAPI , Body
 from main import *
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = ["*"]  # replace this with your list of allowed origins
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #search product
 @app.get("/product/search_product/{name}")
@@ -37,7 +49,7 @@ async def login(account_data:dict = Body(...)):
             if account.account_id == "admin":
                 return {"message":"Login success","account":account,"role":"admin"}
             elif  isinstance(account.account_id,int):
-                return {"message":"Admin","account":account,"role":"customer"}
+                return {"message":"Login success","account":account,"role":"customer"}
         else:
             return {"message":"Failed to login"}
     except:
@@ -57,7 +69,7 @@ async def register(account_data:dict = Body(...)):
         return {"message":"Failed"}
 
 # view_cart
-@app.post("/cart/")
+@app.post("/cart")
 async def view_cart(account_data:dict = Body(...)):
     account = account_list.get_account(account_data.get("account_id"))
     cart = account.cart
