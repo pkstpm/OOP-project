@@ -1,9 +1,10 @@
 from Product import *
 
 class Item:
-    def __init__(self, product, quantity):
+    def __init__(self, product, quantity, product_id):
         self.__product = product
         self.__quantity = quantity
+        self.__product_id = product_id
 
     @property
     def product(self):
@@ -11,6 +12,9 @@ class Item:
     @property
     def quantity(self):
         return self.__quantity
+    @property
+    def product_id(self):
+        return self.__product_id
     
     @product.setter
     def product(self, new_product):
@@ -46,16 +50,16 @@ class Cart:
         if product.check_status() == True:
             if product.reduce_quantity(quantity) == True:
                 for item in self.items:
-                    if item.product.product_id == product.product_id:
+                    if item.product_id == product.product_id:
                         item.quantity += quantity
                         return item
-                new_item = Item(product,quantity)
+                new_item = Item(product,quantity,product.product_id)
                 self.items.append(new_item)
                 return new_item
     
     def remove_product_from_cart(self, product_id):
         for item in self.items:
-            if product_id == item.product.product_id:
+            if product_id == item.product_id:
                 item.product.add_quantity(item.quantity)
                 self.items.remove(item)
                 return self.items
@@ -74,12 +78,8 @@ class Cart:
         if not self.items:
             return {"message":"Your cart is empty"}
         else:
-            result = [{"name":item.product.name, "quantity":item.quantity, "price":item.calculate_price()} for item in self.items]
+            result = [{"name":item.product.name, "quantity":item.quantity, "price":item.calculate_price() , "product_id":item.product_id} for item in self.items]
             return result
         
     def get_cart(self):
         return self.items
-
-
-    
-   
