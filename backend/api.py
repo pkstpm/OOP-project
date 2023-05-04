@@ -237,3 +237,9 @@ async def remove_product(product_id:int):
     product = product_catalog.get_product(product_id)
     product_catalog.remove_product(product)
     return {"message":"Success"}
+
+# view_all_order
+@app.get("/view_all_order/{account_id}")
+async def view_all_order(account_id : int):
+    account = account_list.get_account(account_id)
+    return account.orders
