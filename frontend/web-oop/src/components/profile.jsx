@@ -1,14 +1,25 @@
 import { useEffect, useState } from 'react';
+import Update_info from './editprofile';
 
-function ProfilePage(props) {
+
+function ProfilePage() {
   const [account, setAccount] = useState(null);
   const [role, setRole] = useState('');
+  const [showEditPage, setShowEditPage] = useState(false);
 
+  function handleEditClick() {
+    setShowEditPage(true);
+}
+function handleEditbgClick() {
+    setShowEditPage(false);
+}
   
 
   const getdata = function()  {
     const storedAccount = JSON.parse(localStorage.getItem('account'));
     const storedRole = localStorage.getItem('role');
+
+    
 
     setAccount(storedAccount);
     setRole(storedRole);
@@ -28,7 +39,10 @@ function ProfilePage(props) {
   }
 
   return (
+    <div>
+      {showEditPage && <Update_info onClose={handleEditbgClick}/>}
     <div className="bg-gray-100 h-screen">
+      
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-2xl font-bold">{account._Customer__name}'s Profile</h1>
@@ -38,7 +52,7 @@ function ProfilePage(props) {
           <div className="px-4 py-5 sm:grid sm:grid-cols-2">
             <h3 className="text-lg leading-6 font-medium text-gray-900">Account Information</h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500 sm:col-span-2">View and update your account information.</p>
-            <button href="#edit" onClick={props.loginclick} className="col-span-2 justify-end" class="rounded-none ..." >Edit Profile</button>
+            <button href="#editprofile" onClick={handleEditClick}  className="col-span-2 justify-end" class="rounded-none ..." >Edit Profile</button>
           </div>
           <div className="border-t border-gray-200">
             <dl>
@@ -59,7 +73,9 @@ function ProfilePage(props) {
         </div>
       </div>
     </div>
+    </div>
   );
 }
+
 
 export default ProfilePage;

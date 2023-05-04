@@ -49,6 +49,7 @@ function PurchaseHistory() {
               <div className="mt-2 border-t border-gray-200 pt-4">
                 <p>Details for {purchase.description}:</p>
                 <p>Amount: ${purchase.amount.toFixed(2)}</p>
+                
               </div>
             )}
           </li>
