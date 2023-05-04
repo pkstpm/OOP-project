@@ -88,12 +88,11 @@ class Customer(Account):
         return self.__orders
 
     def make_order(self):
-        new_order = Order(self.cart.items,self.cart.calculate_total_price(),self.username,self.address)
+        new_order = Order(self.cart.items,self.cart.calculate_total_price())
         self.cart.clear_cart()
         self.orders.append(new_order)
         return new_order
         
-    
     def cancel_order(self, order_id):
         order = self.get_order(order_id)
         item = order.order_item

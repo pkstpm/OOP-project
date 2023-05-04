@@ -6,11 +6,10 @@ class Order:
 
     id = 0
 
-    def __init__(self, order_item, total_price, username, address):
+    def __init__(self, order_item, total_price):
         self.__order_item = order_item
         self.__total_price = total_price
-        self.__username = username
-        self.__address = address
+        self.__payment = None
         self.__status = "Not Paid"
         self.__order_id = Order.id
         Order.id += 1
@@ -22,14 +21,12 @@ class Order:
     def total_price(self):
         return self.__total_price
     @property
-    def username(self):
-        return self.__username
+    def payment(self):
+        return self.__payment
+    
     @property
     def status(self):
         return self.__status
-    @property
-    def address(self):
-        return self.__address
     @property
     def order_id(self):
         return self.__order_id
@@ -38,6 +35,10 @@ class Order:
     def order_item(self, new_order_item):
         self.__order_item = new_order_item
         return self.__order_item
+    @payment.setter
+    def payment(self, new_payment):
+        self.__payment = new_payment
+        return self.__payment
     @status.setter
     def status(self, new_status):
         self.__status = new_status

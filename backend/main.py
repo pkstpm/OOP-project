@@ -42,6 +42,8 @@ admin1 = Admin(username="admin2",password="admin2")
 admin1 = Admin(username="admin3",password="admin3")
 
 customer1 = Customer(username="Pongsapat", password="1234", email="65010660@kmitl.ac.th", name="Poon")
+cart1 = customer1.cart
+
 customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", name="Jacky")
 
 
@@ -75,8 +77,6 @@ product1.add_review(review2)
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
-cart1 = customer1.cart
-customer1.make_order()
-order1 = customer1.get_order(0)
+cart1.add_product_to_cart(product1,1)
 
-print(order1.view_order())
+customer1.make_order()
