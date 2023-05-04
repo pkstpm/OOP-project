@@ -1,0 +1,153 @@
+.checkout-page{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.payment{
+    width: 40%;
+    height: 100%;
+    padding: 5%;
+}
+
+.pay{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    column-gap: 16px;
+    height: 40px;
+    width: 100%;
+    row-gap: 16px;
+}
+
+.pay button{
+    background-color: black;
+    cursor: pointer;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.payment h1{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.order{
+    width: 40%;
+    height: 100%;
+    padding: 5%;
+}
+
+.checkout-items ul{
+    list-style: none;
+    /* background-color: black; */
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    display: block;
+}
+
+.item li{
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    height: 70px;
+}
+
+.checkout-footer{
+    /* border-top: 1px solid black; */
+    /* background-color: yellow; */
+    height: 200px;
+    display: block;
+    bottom: 0;
+    width: 37.5%;
+    position: fixed;
+    padding: 1rem;
+    text-align: right;
+    
+}
+.line{
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.text-footer{
+    display: flex;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    justify-content: space-between;
+}
+
+.status-page{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.status-bg{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-container{
+    /* display: flex; */
+    width: 260px;
+    height: 200px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.status-icon{
+    display: flex;
+    margin-top: 17%;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 50px; */
+    scale: 300%;
+    /* justify-content: center; */
+    
+    /* align-items: start; */
+}
+
+.status-text{
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+}
+
+.status-container button{
+    width: 70%;
+    height: 30px;
+    
+    /* justify-content: center; */
+    margin-left: 15%;
+    margin-right: 15%;
+    background: black;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}

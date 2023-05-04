@@ -1,0 +1,52 @@
+.op_user-page{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.op_user-bg {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+
+.op_user-container {
+    position: fixed;
+    top: 50px;
+    left: 79%;
+    width: 80px;
+    height: 150px;
+    background-color: #fff;
+    /* justify-content: center; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* z-index: 9999; */
+    /* overflow-y: auto; */
+}
+
+.profile{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+
+.history{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+}
+
+.logout{
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+}
