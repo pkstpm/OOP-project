@@ -95,8 +95,9 @@ class Customer(Account):
         
     def cancel_order(self, order_id):
         order = self.get_order(order_id)
-        item = order.order_item
-        self.cart.items.append(item)
+        items = order.order_item
+        for item in items:
+            self.cart.items.append(item)
         self.orders.remove(order)
         return self.cart
     

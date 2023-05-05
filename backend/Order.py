@@ -23,6 +23,7 @@ class Order:
     @property
     def payment(self):
         return self.__payment
+    
     @property
     def status(self):
         return self.__status
