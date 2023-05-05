@@ -1,6 +1,7 @@
 from Review import *
+from abc import ABC , abstractmethod
 
-class Product:
+class Product(ABC):
 
     id = 0
 
@@ -76,6 +77,10 @@ class Product:
     def reviews(self, new_reviews):
         self._reviews = new_reviews
         return self._reviews
+    
+    @abstractmethod
+    def modify_product(self, name,  price, overview, quantity, promotion_price):
+        pass
     
     def check_status(self):
         if self.status == 'available':
@@ -158,6 +163,17 @@ class Keyboard(Product):
         self.__casecolor = new_casecolor
         return self.__casecolor
     
+    def modify_product(self, name, price, overview, quantity, promotion_price, keyboard_switch, keyboard_keycap, keys, casecolor):
+        self.name = name
+        self.price = price
+        self.overview = overview
+        self.quantity = quantity
+        self.promotion_price = promotion_price
+        self.keyboard_switch = keyboard_switch
+        self.keyboard_keycap = keyboard_keycap
+        self.keys = keys
+        self.casecolor = casecolor
+    
     
 class Keycap(Product):
     def __init__(self, name, price, overview, quantity, kit, profile, type_keycap, promotion_price=None, status="available"):
@@ -188,6 +204,17 @@ class Keycap(Product):
     def type_keycap(self, new_type_keycap):
         self.__type_keycap = new_type_keycap
         return self.__type_keycap
+    
+    def modify_product(self, name, price, overview, quantity, promotion_price, kit, profile, type_keycap):
+        self.name = name
+        self.price = price
+        self.overview = overview
+        self.quantity = quantity
+        self.promotion_price = promotion_price
+        self.kit = kit
+        self.profile = profile
+        self.type_keycap = type_keycap
+
 class Switch(Product):
     def __init__(self, name, price, overview, quantity, variation, spring_weight, type_switch, promotion_price = None, status="available"):
         super().__init__(name, price, overview, quantity, promotion_price, 'switch', status)
@@ -217,3 +244,13 @@ class Switch(Product):
     def type_switch(self, new_type_switch):
         self.__type_switch = new_type_switch
         return self.__type_switch
+    
+    def modify_product(self, name, price, overview, quantity, promotion_price, variation, spring_weight, type_switch):
+        self.name = name
+        self.price = price
+        self.overview = overview
+        self.quantity = quantity
+        self.promotion_price = promotion_price
+        self.variation = variation
+        self.spring_weight = spring_weight
+        self.type_switch = type_switch
