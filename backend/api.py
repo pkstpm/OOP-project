@@ -118,9 +118,9 @@ async def remove_review(data:dict = Body(...)):
     
 
 # view_review
-@app.post("/product/review")
-async def view_review(product_data:dict = Body(...)):
-    product = product_catalog.get_product(product_data.get("product_id"))
+@app.get("/product/review/{product_id}")
+async def view_review(product_id : int):
+    product = product_catalog.get_product(product_id)
     return product.view_review()
 
 # make_order
