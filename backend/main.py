@@ -13,11 +13,6 @@ shoppay = ShopPay()
 paypal = Paypal()
 googlepay = GooglePay()
 
-product1 = Product(name="Product1", price=100, promotion_price=None, overview='good', quantity=5, category='keyboard')
-product2 = Product(name="Product2", price=200, promotion_price=None, overview='good', quantity=10, category='keycap')
-product3 = Product(name="Product3", price=300, promotion_price=None, overview='good', quantity=15, category='switch')
-product4 = Product(name="Apple", price=400, promotion_price=None, overview='good', quantity=8, category='keyboard')
-
 keyboard1 = Keyboard(name='Keyboard1',price= 100.0,promotion_price= 80.0, overview='A high-quality mechanical keyboard', quantity=10, keyboard_switch='Cherry MX Brown', keyboard_keycap='DSA',keys= 104, casecolor='Black')
 keyboard2 = Keyboard(name='Keyboard2',price= 80.0,promotion_price= 75.0, overview='A high-quality mechanical keyboard', quantity=5, keyboard_switch='Cherry MX Brown', keyboard_keycap='DSA',keys= 104, casecolor='Black')
 keyboard3 = Keyboard(name='Keyboard3',price= 120.0,promotion_price= 110.0, overview='A high-quality mechanical keyboard', quantity=2, keyboard_switch='Cherry MX Brown', keyboard_keycap='DSA',keys= 104, casecolor='Black')
@@ -50,10 +45,6 @@ customer2 = Customer(username="Anucha", password="6969", email="kmitl.ac.th", na
 review1 = Review(rating=5,name="Poon",account_id=0)
 review2 = Review(rating=3,name="Jacky",account_id=0)
 
-product_catalog.add_product(product1)
-product_catalog.add_product(product2)
-product_catalog.add_product(product3)
-product_catalog.add_product(product4)
 product_catalog.add_product(keyboard1)
 product_catalog.add_product(keyboard2)
 product_catalog.add_product(keyboard3)
@@ -70,9 +61,6 @@ product_catalog.add_product(switch2)
 product_catalog.add_product(switch3)
 product_catalog.add_product(switch4)
 product_catalog.add_product(switch5)
-
-product1.add_review(review1)
-product1.add_review(review2)
 
 account_list.add_account(customer1)
 account_list.add_account(customer2)
