@@ -23,23 +23,23 @@ function Checkout (props){
     };
 
 
-    // function handleCancel(){
-    //   const playlode = JSON.stringify({account_id :userId, order_id : +id });
-    //  console.log(playlode)
-    //   fetch("http://127.0.0.1:8000/cancel_order", {
-    //             method: "POST",
-    //             body: playlode,
-    //             headers: { 'Content-Type': 'application/json' },
-    //           })
-    //             .then((response) => response.json()
-    //             )
-    //             .then((data) => {
-    //               navigate(`/history`);
-    //             })
-    //             .catch((error) => {
-    //               console.error("Error:", error);
-    //             });
-    // }
+    function handleCancel(){
+      const playlode = JSON.stringify({account_id :userId, order_id : +id });
+     console.log(playlode)
+      fetch("http://127.0.0.1:8000/cancel_order", {
+                method: "POST",
+                body: playlode,
+                headers: { 'Content-Type': 'application/json' },
+              })
+                .then((response) => response.json()
+                )
+                .then((data) => {
+                  navigate(`/history`);
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+    }
     
 
     function handlePay(){
@@ -142,13 +142,13 @@ function Checkout (props){
                   </button>
                 </div>
                 
-                
+            
                 <div>
                     <h6>Address</h6>
-                    {/* <div>{userId && userId.address}</div> */}
+                    <div>{userId && userId.address}</div>
                     <textarea name="address" id="" cols="40" rows="5" value={address} onChange={(event) => { setAddress(event.target.value) }}> </textarea>
                     <button class = "btn" onClick={handlePay}> Pay Now</button>
-                    {/* <button class = "btn-cancel mt-1"  onClick={handleCancel}> Cancel</button> */}
+                    <button class = "btn-cancel mt-1"  onClick={handleCancel}> Cancel</button>
                 </div>
 
             </div>
