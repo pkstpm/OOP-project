@@ -65,5 +65,7 @@ product_catalog.add_product(switch5)
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
+cart1.add_product_to_cart(keyboard1,3)
+
 
 customer1.make_order()

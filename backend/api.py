@@ -149,8 +149,6 @@ async def view_order(order_id : int,account_id : int):
 async def payment(data:dict = Body(...)):
     account = account_list.get_account(data.get("account_id"))
     order = account.get_order(data.get("order_id"))
-    print(data)
-    print(order)
     if data.get("payment") == "Shoppay":
         item = order.view_order()
         date = datetime.datetime.now()
@@ -253,38 +251,39 @@ async def view_all_order(account_id : int):
 
 # modify_product
 @app.put("/modify_product/{product_id}")
-async def modify_product(product_id : int , product_data:dict = Body(...)):
-    product = product_catalog.get_product(product_id)
-    if product.category == 'keyboard':
-        product.modify_product(name=product_data.setdefault("name",product.name),
-                               price=product_data.setdefault("price",product.price),
-                               overview=product_data.setdefault("overview",product.overview),
-                               quantity=product_data.setdefault("quantity",product.quantity),
-                               promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
-                               keyboard_switch=product_data.setdefault("keyboard_switch",product.keyboard_switch),
-                               keyboard_keycap=product_data.setdefault("keyboard_keycap",product.keyboard_keycap),
-                               keys=product_data.setdefault("keys",product.keys),
-                               casecolor=product_data.setdefault("casecolor",product.casecolor))
-        return product
-    
-    elif product.category == 'keycap':
-        product.modify_product(name=product_data.setdefault("name",product.name),
-                               price=product_data.setdefault("price",product.price),
-                               overview=product_data.setdefault("overview",product.overview),
-                               quantity=product_data.setdefault("quantity",product.quantity),
-                               promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
-                               kit=product_data.setdefault("kit",product.kit),
-                               profile=product_data.setdefault("profile",product.profile),
-                               type_keycap=product_data.setdefault("type_keycap",product.type_keycap))
-        return product
-    
-    elif product.category == 'switch':
-        product.modify_product(name=product_data.setdefault("name",product.name),
-                               price=product_data.setdefault("price",product.price),
-                               overview=product_data.setdefault("overview",product.overview),
-                               quantity=product_data.setdefault("quantity",product.quantity),
-                               promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
-                               variation=product_data.setdefault("variation",product.variation),
-                               spring_weight=product_data.setdefault("spring_weight",product.spring_weight),
-                               type_switch=product_data.setdefault("type_switch",product.type_switch))
-        return product
+async def modify_product(product_id : int , account_id , product_data:dict = Body(...)):
+    if account_id == 'admin':
+        product = product_catalog.get_product(product_id)
+        if product.category == 'keyboard':
+            product.modify_product(name=product_data.setdefault("name",product.name),
+                                price=product_data.setdefault("price",product.price),
+                                overview=product_data.setdefault("overview",product.overview),
+                                quantity=product_data.setdefault("quantity",product.quantity),
+                                promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
+                                keyboard_switch=product_data.setdefault("keyboard_switch",product.keyboard_switch),
+                                keyboard_keycap=product_data.setdefault("keyboard_keycap",product.keyboard_keycap),
+                                keys=product_data.setdefault("keys",product.keys),
+                                casecolor=product_data.setdefault("casecolor",product.casecolor))
+            return product
+        
+        elif product.category == 'keycap':
+            product.modify_product(name=product_data.setdefault("name",product.name),
+                                price=product_data.setdefault("price",product.price),
+                                overview=product_data.setdefault("overview",product.overview),
+                                quantity=product_data.setdefault("quantity",product.quantity),
+                                promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
+                                kit=product_data.setdefault("kit",product.kit),
+                                profile=product_data.setdefault("profile",product.profile),
+                                type_keycap=product_data.setdefault("type_keycap",product.type_keycap))
+            return product
+        
+        elif product.category == 'switch':
+            product.modify_product(name=product_data.setdefault("name",product.name),
+                                price=product_data.setdefault("price",product.price),
+                                overview=product_data.setdefault("overview",product.overview),
+                                quantity=product_data.setdefault("quantity",product.quantity),
+                                promotion_price=product_data.setdefault("promotion_price",product.promotion_price),
+                                variation=product_data.setdefault("variation",product.variation),
+                                spring_weight=product_data.setdefault("spring_weight",product.spring_weight),
+                                type_switch=product_data.setdefault("type_switch",product.type_switch))
+            return product
