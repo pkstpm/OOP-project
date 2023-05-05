@@ -1,64 +1,60 @@
-import { useState } from 'react';
-import Navbar from "../components/navbar";
-// import "../styles/history.css";
+import React, { useEffect, useState } from "react";
 
+const PurchaseHistory = () => {
+  const [transactions, setTransactions] = useState([]);
+  const [userId, setUserId] = useState(null)
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if(storedUserId){
+      setUserId(+storedUserId)   
+    }
+    if(userId!=null){
+      fetch(`http://127.0.0.1:8000/view_history_purchase/${userId}`).then((response) => response.json()
+      )
+      .then((data) => {
+          console.log(data)
+          setTransactions(data)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    }
+   
+}, [userId]);
 
-const purchases = [
-  { id: 1, date: 'May 1, 2023', description: 'Item 1', amount: 10.99 },
-  { id: 2, date: 'April 28, 2023', description: 'Item 2', amount: 19.99 },
-  { id: 3, date: 'April 20, 2023', description: 'Item 3', amount: 5.99 },
-];
-
-function PurchaseHistory() {
-  const [showDetails, setShowDetails] = useState(null);
-  const [infoVisible, setInfoVisible] = useState(false);
-  function searchclick() {
-    setInfoVisible(!infoVisible);
-}
-
-    
   return (
-    
-    <div>
-        
-    <div className="py-[40px] max-w-md mx-auto">
-    <h2 className="text-xl font-bold mb-4 mx-auto">Purchase History</h2>
-        
-      
-      <ul className="divide-y divide-gray-200 border black">
-        {purchases.map(purchase => (
-          <li key={purchase.id} className="py-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-gray-600">{purchase.date}</p>
-                <p className="font-bold">{purchase.description}</p>
-              </div>
-              <div>
-                <p className="font-bold">${purchase.amount.toFixed(2)}</p>
-                <button
-                  className="black"
-                  onClick={() => setShowDetails(purchase.id)}
-                >
-                    
-                    <i  class="fa-solid fa-caret-down fa-2xl mr-0"></i>
-                
-                </button>
-              </div>
+    <div className="flex justify-center">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {transactions && transactions.map((transaction, index) => (
+          <div
+            key={index}
+            className="bg-white shadow rounded-lg p-4 hover:shadow-xl transition-shadow"
+          >
+            <h3 className="font-semibold">{transaction.payment}</h3>
+            <p className="text-gray-600">{transaction.pay_date}</p>
+            <hr className="my-2" />
+            <div className="flex justify-between mb-2">
+              <p className="font-medium">Item</p>
+              <p className="font-medium">Price</p>
             </div>
-            {showDetails === purchase.id && (
-              <div className="mt-2 border-t border-gray-200 pt-4">
-                <p>Details for {purchase.description}:</p>
-                <p>Amount: ${purchase.amount.toFixed(2)}</p>
-                
+            {transaction.item.map((item, index) => (
+              <div key={index} className="flex justify-between mb-1">
+                <p>{item.name} x{item.quantity}</p>
+                <p>${item.price.toFixed(2)}</p>
               </div>
-            )}
-          </li>
+            ))}
+            <hr className="my-2" />
+            <div className="flex justify-between">
+              <p className="font-medium">Total</p>
+              <p className="font-medium">${transaction.total_price.toFixed(2)}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
-    </div>
- 
   );
-}
+};
+
+// export default ShoppingHistory;
 
 export default PurchaseHistory;

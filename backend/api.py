@@ -61,7 +61,7 @@ async def register(account_data:dict = Body(...)):
     try:
         if account_list.verify_account(account_data.get("username"),account_data.get("email")) == True:
             if account_list.check_password(account_data.get("password"),account_data.get("check_password")) == True:
-                new_account = Customer(account_data.get("username"),account_data.get("password"),account_data.get("email"),account_data.get("name"))
+                new_account = Customer(account_data.get("username"),account_data.get("password"),account_data.get("name"))
         data = account_list.add_account(new_account)
         if new_account and data:
             return {"message":"Success","account":new_account}
@@ -149,33 +149,40 @@ async def view_order(order_id : int,account_id : int):
 async def payment(data:dict = Body(...)):
     account = account_list.get_account(data.get("account_id"))
     order = account.get_order(data.get("order_id"))
+    print(data)
+    print(order)
     if data.get("payment") == "Shoppay":
         item = order.view_order()
         date = datetime.datetime.now()
+        pay = shoppay.pay(order)
         result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
         account.add_history_purchase(result)
         account.orders.remove(order)
-        return shoppay.pay(order)
+        return pay
     if data.get("payment") == "Paypal":
         item = order.view_order()
         date = datetime.datetime.now()
+        pay = paypal.pay(order)
         result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
         account.add_history_purchase(result)
         account.orders.remove(order)
-        return paypal.pay(order)
+        return pay
     if data.get("payment") == "Googlepay":
         item = order.view_order()
         date = datetime.datetime.now()
+        pay = googlepay.pay(order)
         result = {"item":item,"total_price":order.total_price,"payment":order.payment,"name":account.name,"address":account.address,"pay_date":date.strftime("%x")}
         account.add_history_purchase(result)
         account.orders.remove(order)
-        return googlepay.pay(order)
+        return pay
 
 # edit_profile
 @app.put("/edit_profile")
 async def edit_profile(account_data:dict = Body(...)):
+
     try:
         account =  account_list.get_account(account_data.get("account_id"))
+        
         account.edit_profile(account_data.get("name"),account_data.get("address"))
         if account:
             return {"message":"edit profile success","account":account}

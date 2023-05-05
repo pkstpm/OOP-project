@@ -37,9 +37,38 @@ function Cartpage(props) {
                 });
      };
 
+    const lodeData = () => {
+      const storedUserId = localStorage.getItem('userId');
+      if(storedUserId){
+        setUserId(+storedUserId)   
+      }
+      const playlode = JSON.stringify({account_id :userId});
+     if(  userId !== null) {
+     fetch("http://127.0.0.1:8000/cart", {
+              method: "POST",
+              body: playlode,
+              headers: { 'Content-Type': 'application/json' },
+            })
+              .then((response) => response.json()
+              )
+              .then((data) => {
+                if(data.item.message != 'Your cart is empty'){
+                  setCartItem(data.item)
+                  setTotalPrice(data.total_price)
+                 }
+                 else {
+                  setCartItem([])
+                  setTotalPrice(0)
+                 }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            }
+    };
+
     function handleDeletItem (event)  {
       const playlode = JSON.stringify({account_id :userId, product_id:+event.target.value});
-      console.log(playlode)
       fetch("http://127.0.0.1:8000/cart/remove_item/", {
                 method: "PUT",
                 body: playlode,
@@ -56,42 +85,10 @@ function Cartpage(props) {
                 });
      };
 
-
-
-    const lodeData = () => {
-      const storedUserId = localStorage.getItem('userId');
-      if(storedUserId){
-        setUserId(+storedUserId)   
-      }
-      const playlode = JSON.stringify({account_id :userId});
-     if(  userId !== null) {
-     fetch("http://127.0.0.1:8000/cart", {
-              method: "POST",
-              body: playlode,
-              headers: { 'Content-Type': 'application/json' },
-            })
-              .then((response) => response.json()
-              )
-              .then((data) => {
-              
-                 if(data.item.message != 'Your cart is empty'){
-                  setCartItem(data.item)
-                  setTotalPrice(data.total_price)
-                  console.log("cart", cartItem)
-                
-                 }
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-            }
-    };
-
     useEffect(() => {
         setShowCart(props.isShow)
-        lodeData();
-    
-      }, [showCart]);
+        if(props.isShow == true) lodeData();
+    }, [showCart,]);
 
     return (
       <div class="relative">
@@ -101,13 +98,14 @@ function Cartpage(props) {
           <button className="bg-indigo-950 text-white" onClick={() =>{setShowCart(false); props.onClose() }  }>Close</button>
         </div>
         <div className="p-4">
-          {cartItem.map(product => (
+          { cartItem ? (cartItem.map(product => (
             <div key={product.name} className="flex justify-between items-center mb-4">
               <div className="inline"><button className="inline-block bg-transparent border-transparent text-red-500 me-3"  value={product.product_id} onClick={handleDeletItem}> X </button>
               <p className="text-white inline-block">{product.name} ({product.quantity})</p></div>
               <p className="text-white">{product.price}</p>
             </div>
-          ))}
+          ))) : null
+        }
           <div className="flex justify-between items-center border-t border-gray-700 mt-4 pt-2">
             <p className="text-white">Total:</p>
             <p className="text-white">{totalPrice}</p>
