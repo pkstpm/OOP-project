@@ -7,6 +7,7 @@ function Product() {
     const { _product_id } = useParams();
     const [data, setData] = useState(null);
     const [amount,setAmount] = useState(0)
+    const [review,setreview] = useState(null)
     const handleAmountChange = (event) => {
       setAmount(event.target.value); // เมื่อผู้ใช้กรอกข้อมูล input ให้เปลี่ยนค่า State ของ inputValue
     };
@@ -42,9 +43,6 @@ function Product() {
           console.error("Error:", error);
         });
   
-
-        
-     
     };
     
   useEffect(() => {
@@ -73,8 +71,24 @@ function Product() {
 
         console.error('Error:', error);
       });
+
+      const pathreview = `http://127.0.0.1:8000/product/review/${_product_id}`;
+    
+    fetch(pathreview ,{
+      })
+      .then(response => response.json())
+      .then(data => {
+        setreview(data);
+        console.log(data); // Log the data to the console
+      })
+      .catch(error => {
+
+        console.error('Error:', error);
+      });
   }, [_product_id]);
 
+
+  
 
   return (
     
@@ -104,6 +118,10 @@ function Product() {
                         </button>
                       </form>
                     </div>
+                      <div class="my-[10px]">
+                        <h5>Rating : {review && review.average_rating}
+                        </h5>
+                      </div>
                 </div>
             </div>
         </div>

@@ -45,5 +45,5 @@ class Order:
         return self.__status
     
     def view_order(self):
-        result = [{"name":item.product.name, "quantity":item.quantity, "price":item.calculate_price()} for item in self.order_item]
+        result = [{"name":item.product.name, "product_id":item.product.product_id, "quantity":item.quantity, "price":item.calculate_price()} for item in self.order_item]
         return result

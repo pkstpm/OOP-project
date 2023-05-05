@@ -61,7 +61,6 @@ const Products = () => {
                 <Link to={`/product/${product._product_id}`} >Read more</Link>
               </div>
 
-              
             </div>
           </div>
           

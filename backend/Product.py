@@ -115,12 +115,9 @@ class Product:
     
     def view_review(self):
         if not self.reviews:
-            return {"message":"this product not have review"}
+            return {"review":"this product not have review"}
         else:
-            result = [{"rating":review.rating, "name":review.name} for review in self.reviews]
-            average_rating = {"average_rating":self.calculate_average_rating()}
-            result.append(average_rating)
-            return result
+            return {"review":self.reviews,"average_rating":self.calculate_average_rating()}
 
         
 class Keyboard(Product):

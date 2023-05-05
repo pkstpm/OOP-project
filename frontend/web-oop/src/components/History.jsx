@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const PurchaseHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [userId, setUserId] = useState(null)
-  const [rating, setRating] = useState("")
+  const [rating, setRating] = useState(null)
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if(storedUserId){
@@ -23,28 +23,38 @@ const PurchaseHistory = () => {
    
 }, [userId]);
 
-const handleRatingChange = (event) => {
-  const rating = event.target.value;
-  setSearch(rating);
-};
 
-function handleRatingChange(){
-  const playlode = JSON.stringify({account_id :userId, product_id : +id , rating:rating });
-     console.log(playlode)
-      fetch("http://127.0.0.1:8000/product/review/add_review", {
-                method: "POST",
-                body: playlode,
-                headers: { 'Content-Type': 'application/json' },
-              })
-                .then((response) => response.json()
-                )
-                .then((data) => {
-                  navigate(`/history`);
-                })
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
-    }
+const handleRatingChange = (event) => {
+  setRating(event.target.value);
+console.log(transactions[0].item[0].product_id)
+  
+  event.preventDefault();
+  const playlode = JSON.stringify({
+    "account_id" : userId ,
+    "product_id": transactions[0].item[0].product_id,
+    "rating":  +rating
+    })
+  event.preventDefault(); // ยกเลิกการส่งฟอร์มเพื่อให้เราสามารถจัดการข้อมูล input ได้
+  console.log(playlode)
+
+  // ส่งค่า input ไปยังเซิร์ฟเวอร์เพื่อประมวลผล
+  fetch("http://127.0.0.1:8000/product/review/add_review", {
+    method: "POST",
+    body: playlode,
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((response) => response.json()
+    )
+    .then((data) => {
+      if(data){
+        // window.location.reload()
+      }
+      console.log(data); // ประมวลผลข้อมูลที่ส่งกลับมาจากเซิร์ฟเวอร์
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
 };
 
 
@@ -68,15 +78,12 @@ function handleRatingChange(){
                 <p>{item.name} x{item.quantity}</p>
                 <p>${item.price.toFixed(2)}</p>
                 <input
-        type="number"
-        name="rating"
-        min="0"
-        max="5"
-        value={rating}
-        onChange={handleRatingChange}
-        placeholder="0"
-        className="ml-4 px-2 py-1 border border-gray-400 rounded-md focus:outline-none focus:border-blue-500 w-16"
-      />
+                    type="num"
+                    value={rating}
+                    onChange={handleRatingChange}
+                    placeholder=""
+                    className="ml-4 px-2 py-1 border border-gray-400 rounded-md focus:outline-none focus:border-blue-500 w-16"
+                  />
 
               </div>
             ))}
@@ -91,8 +98,7 @@ function handleRatingChange(){
     </div>
   );
 
-
+    }
 // export default ShoppingHistory;
 
 export default PurchaseHistory;
-
