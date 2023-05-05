@@ -77,6 +77,5 @@ product1.add_review(review2)
 account_list.add_account(customer1)
 account_list.add_account(customer2)
 
-cart1.add_product_to_cart(product1,1)
 
 customer1.make_order()
